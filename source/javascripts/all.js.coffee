@@ -78,7 +78,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
       setMeaningState kanji, 'kunyomi', 'failed'
 
   $scope.revealOnyomi = ( kanji ) ->
-    val = wanakana.toKana( $scope.kunyomis[ kanji.name ] || '' )
+    val = wanakana.toKana( $scope.onyomis[ kanji.name ] || '' )
 
     anyMatches = kanji.onyomi.some ( reading ) =>
       val == reading

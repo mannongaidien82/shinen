@@ -33,6 +33,10 @@
               type="text"
               required=true
               placeholder="Meaning"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               on-enter="revealMeaning( kanji )"
               ng-model="meanings[ kanji.name ]"
               ng-disabled="touchedKanjis[ kanji.name ].meaning"
@@ -51,6 +55,10 @@
               type="text"
               required="true"
               placeholder="Kunyomi reading"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               on-enter="revealKunyomi( kanji )"
               to-hiragana=true
               ng-model="kunyomis[ kanji.name ]"
@@ -70,6 +78,10 @@
               type="text"
               required="true"
               placeholder="Onyomi reading"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               on-enter="revealOnyomi( kanji )"
               to-katakana=true
               ng-model="onyomis[ kanji.name ]"
