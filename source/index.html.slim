@@ -1,0 +1,86 @@
+.card ng-controller="levelsCtrl"
+  .card-header
+    .dropdown
+      button.btn.btn-secondary.dropdown-toggle {
+        type="button"
+        id="dropdownMenu1"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        }
+        | {{ pickedLevel || 'Select your level' }}
+      .dropdown-menu aria-labelledby="dropdownMenu1"
+        a.dropdown-item {
+          href="#"
+          ng-repeat="level in levels"
+          ng-click="pickLevel( level )"
+          ng-class="{ active: level == pickedLevel }"
+          }
+          | {{ level }}
+  ul.list-group.list-group-flush
+    li.list-group-item {
+      ng-repeat="kanji in kanjis"
+      ng-class="{ success: 'list-group-item-success', failed: 'list-group-item-danger', mixed: 'list-group-item-warning' }[ touchedKanjis[ kanji.name ].status ]"
+      }
+      .row
+        .col-md-1
+          h2
+            span.label.label-default.center-block
+              | {{ kanji.name }}
+        .col-md-5
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].meaning ]"
+            input.form-control {
+              type="text"
+              required=true
+              placeholder="Meaning"
+              on-enter="revealMeaning( kanji )"
+              ng-model="meanings[ kanji.name ]"
+              ng-disabled="touchedKanjis[ kanji.name ].meaning"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].meaning ]"
+              }
+            .input-group-btn
+              button.btn.btn-secondary {
+                data-title="Show answer"
+                ng-click="revealMeaning( kanji )"
+                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                }
+                i.fa.fa-eye
+        .col-md-3
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].kunyomi ]"
+            input.form-control {
+              type="text"
+              required="true"
+              placeholder="Kunyomi reading"
+              on-enter="revealKunyomi( kanji )"
+              to-hiragana=true
+              ng-model="kunyomis[ kanji.name ]"
+              ng-disabled="touchedKanjis[ kanji.name ].kunyomi"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].kunyomi ]"
+              }
+            .input-group-btn
+              button.btn.btn-secondary {
+                data-title="Show answer"
+                ng-click="revealKunyomi( kanji )"
+                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                }
+                i.fa.fa-eye
+        .col-md-3
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].onyomi ]"
+            input.form-control {
+              type="text"
+              required="true"
+              placeholder="Onyomi reading"
+              on-enter="revealOnyomi( kanji )"
+              to-katakana=true
+              ng-model="onyomis[ kanji.name ]"
+              ng-disabled="touchedKanjis[ kanji.name ].onyomi"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].onyomi ]"
+              }
+            .input-group-btn
+              button.btn.btn-secondary {
+                data-title="Show answer"
+                ng-click="revealOnyomi( kanji )"
+                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                }
+                i.fa.fa-eye
+  .card-footer

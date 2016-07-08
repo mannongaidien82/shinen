@@ -1,0 +1,15 @@
+.has-danger {
+  .input-group-btn {
+    button.btn-secondary {
+      border-color: #d9534f;
+    }
+  }
+}
+
+.has-success {
+  .input-group-btn {
+    button.btn-secondary {
+      border-color: #5cb85c;
+    }
+  }
+}
