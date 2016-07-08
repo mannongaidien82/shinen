@@ -135,6 +135,7 @@ DEPENDENCIES
   middleman-compass (>= 4.0.0)
   middleman-livereload
   middleman-sprockets
+  sass
   slim
 
 BUNDLED WITH

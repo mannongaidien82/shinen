@@ -6,3 +6,4 @@ gem 'middleman-compass', '>= 4.0.0'
 gem 'middleman-sprockets'
 
 gem 'slim'
+gem 'sass'

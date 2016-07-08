@@ -19,7 +19,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
   $http
     method: 'GET',
-    url: '/resources/levels.json'
+    url: 'resources/levels.json'
   .then ( response ) ->
     $scope.levels = response.data
 
@@ -28,7 +28,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
     $http
       method: 'GET',
-      url: "/resources/kanji/#{ level }.json"
+      url: "resources/kanji/#{ level }.json"
     .then ( response ) ->
       resetLevel()
       $scope.kanjis = response.data

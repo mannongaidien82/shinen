@@ -1,3 +1,15 @@
-@charset "utf-8";
+.has-danger {
+  .input-group-btn {
+    button.btn-secondary {
+      border-color: #d9534f;
+    }
+  }
+}
 
-@import "kana";
+.has-success {
+  .input-group-btn {
+    button.btn-secondary {
+      border-color: #5cb85c;
+    }
+  }
+}
