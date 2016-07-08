@@ -1,0 +1,27 @@
+[
+  { "name":"山",
+    "meanings":["Mountain"],
+    "onyomi":["サン"],
+    "kunyomi":["やま"]
+  },
+  { "name":"一",
+    "meanings":["One"],
+    "onyomi":["イチ"],
+    "kunyomi":["ひと"]
+  },
+  { "name":"二",
+    "meanings":["Two"],
+    "onyomi":["ニ"],
+    "kunyomi":["ふた"]
+  },
+  { "name":"三",
+    "meanings":["Three"],
+    "onyomi":[""],
+    "kunyomi":["さん"]
+  },
+  { "name":"四",
+    "meanings":["Four"],
+    "onyomi":["シ"],
+    "kunyomi":["よん"]
+  }
+]
