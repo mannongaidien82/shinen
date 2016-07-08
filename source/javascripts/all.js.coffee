@@ -1,6 +1,3 @@
-//= require wanakana
-//= require levenshtein
-
 window.Shinen = angular.module 'Shinen', []
 
 same = ( fst, snd ) ->
