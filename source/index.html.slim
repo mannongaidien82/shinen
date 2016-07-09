@@ -1,22 +1,31 @@
 .card ng-controller="levelsCtrl"
   .card-header
-    .dropdown
-      button.btn.btn-secondary.dropdown-toggle {
-        type="button"
-        id="dropdownMenu1"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-        }
-        | {{ pickedLevel || 'Select your level' }}
-      .dropdown-menu aria-labelledby="dropdownMenu1"
-        a.dropdown-item {
-          href="#"
-          ng-repeat="level in levels"
-          ng-click="pickLevel( level )"
-          ng-class="{ active: level == pickedLevel }"
-          }
-          | {{ level }}
+    nav.navbar.navbar-light
+      ul.nav.navbar-nav
+        li.nav-item.active
+          .dropdown
+            button.btn.btn-secondary.dropdown-toggle {
+              type="button"
+              id="dropdownMenu1"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              }
+              | {{ pickedLevel || 'Select your level' }}
+            .dropdown-menu aria-labelledby="dropdownMenu1"
+              a.dropdown-item {
+                href="#"
+                ng-repeat="level in levels"
+                ng-click="pickLevel( level )"
+                ng-class="{ active: level == pickedLevel }"
+                }
+                | {{ level }}
+        li.nav-item
+          .btn-group role="group" aria-label="Controls"
+            button.btn.btn-secondary ng-click="shuffle()"
+              i.fa.fa-random
+            button.btn.btn-secondary ng-click="rocketMode = !rocketMode" ng-class="rocketMode && 'active'"
+              i.fa.fa-rocket
   ul.list-group.list-group-flush
     li.list-group-item {
       ng-repeat="kanji in kanjis"
@@ -25,7 +34,10 @@
       .row
         .col-md-1
           h2
-            span.label.label-default.center-block
+            span.label.label-default.center-block {
+              ng-class="{ success: 'label-success', failed: 'label-danger', mixed: 'label-warning' }[ touchedKanjis[ kanji.name ].status ] || 'label-default'"
+              }
+
               | {{ kanji.name }}
         .col-md-5
           .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].meaning ]"
@@ -59,8 +71,9 @@
               autocorrect="off"
               autocapitalize="off"
               spellcheck="false"
-              on-enter="revealKunyomi( kanji )"
+              on-enter="revealKunyomi( kanji, false )"
               to-hiragana=true
+              ng-change="kunyomiUpdated( kanji )"
               ng-model="kunyomis[ kanji.name ]"
               ng-disabled="touchedKanjis[ kanji.name ].kunyomi"
               ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].kunyomi ]"
@@ -68,8 +81,8 @@
             .input-group-btn
               button.btn.btn-secondary {
                 data-title="Show answer"
-                ng-click="revealKunyomi( kanji )"
-                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                ng-click="revealKunyomi( kanji, false )"
+                ng-disabled="touchedKanjis[ kanji.name ].kunyomi"
                 }
                 i.fa.fa-eye
         .col-md-3
@@ -82,8 +95,9 @@
               autocorrect="off"
               autocapitalize="off"
               spellcheck="false"
-              on-enter="revealOnyomi( kanji )"
+              on-enter="revealOnyomi( kanji, false )"
               to-katakana=true
+              ng-change="onyomiUpdated( kanji )"
               ng-model="onyomis[ kanji.name ]"
               ng-disabled="touchedKanjis[ kanji.name ].onyomi"
               ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].onyomi ]"
@@ -91,8 +105,8 @@
             .input-group-btn
               button.btn.btn-secondary {
                 data-title="Show answer"
-                ng-click="revealOnyomi( kanji )"
-                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                ng-click="revealOnyomi( kanji, false )"
+                ng-disabled="touchedKanjis[ kanji.name ].onyomi"
                 }
                 i.fa.fa-eye
   .card-footer

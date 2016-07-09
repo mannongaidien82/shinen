@@ -10,18 +10,42 @@ focus = ->
     $('input:enabled').first().focus()
   ), 100
 
+shuffle = (array) ->
+  currentIndex = array.length
+
+  # While there remain elements to shuffle...
+  while (0 != currentIndex)
+    # Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
+    # And swap it with the current element.
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+
+  return array
+
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
+  $scope.rocketMode = false
+
   resetLevel = ->
     $scope.touchedKanjis = {}
     $scope.meanings = {}
     $scope.kunyomis = {}
     $scope.onyomis = {}
+    $scope.kanjis = []
+
+  resetLevel()
 
   $http
     method: 'GET',
     url: 'resources/levels.json'
   .then ( response ) ->
     $scope.levels = response.data
+
+  $scope.shuffle = ->
+    $scope.kanjis = shuffle $scope.kanjis
 
   $scope.pickLevel = ( level ) ->
     $scope.pickedLevel = level
@@ -66,7 +90,15 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     unless $scope.meaningUpdated( kanji )
       setMeaningState kanji, 'meaning', 'failed'
 
-  $scope.revealKunyomi = ( kanji ) ->
+  $scope.kunyomiUpdated = ( kanji ) ->
+    if $scope.rocketMode
+      $scope.revealKunyomi kanji, true
+
+  $scope.onyomiUpdated = ( kanji ) ->
+    if $scope.rocketMode
+      $scope.revealOnyomi kanji, true
+
+  $scope.revealKunyomi = ( kanji, safeMode ) ->
     val = wanakana.toKana( ( $scope.kunyomis[ kanji.name ] || '' ).toUpperCase() )
 
     anyMatches = kanji.kunyomi.some ( reading ) =>
@@ -74,10 +106,10 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
     if anyMatches
       setMeaningState kanji, 'kunyomi', 'success'
-    else
+    else if !safeMode
       setMeaningState kanji, 'kunyomi', 'failed'
 
-  $scope.revealOnyomi = ( kanji ) ->
+  $scope.revealOnyomi = ( kanji, safeMode ) ->
     val = wanakana.toKana( $scope.onyomis[ kanji.name ] || '' )
 
     anyMatches = kanji.onyomi.some ( reading ) =>
@@ -85,7 +117,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
     if anyMatches
       setMeaningState kanji, 'onyomi', 'success'
-    else
+    else if !safeMode
       setMeaningState kanji, 'onyomi', 'failed'
 
   $scope.meaningUpdated = ( kanji ) ->
