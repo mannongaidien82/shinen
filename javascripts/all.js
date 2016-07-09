@@ -1,5 +1,5 @@
 (function() {
-  var focus, same;
+  var focus, same, shuffle;
 
   window.Shinen = angular.module('Shinen', []);
 
@@ -18,20 +18,39 @@
     }), 100);
   };
 
+  shuffle = function(array) {
+    var currentIndex, randomIndex, temporaryValue;
+    currentIndex = array.length;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  };
+
   Shinen.controller('levelsCtrl', function($scope, $http) {
     var resetLevel, setMeaningState, updateRowStatus;
+    $scope.rocketMode = false;
     resetLevel = function() {
       $scope.touchedKanjis = {};
       $scope.meanings = {};
       $scope.kunyomis = {};
-      return $scope.onyomis = {};
+      $scope.onyomis = {};
+      return $scope.kanjis = [];
     };
+    resetLevel();
     $http({
       method: 'GET',
       url: 'resources/levels.json'
     }).then(function(response) {
       return $scope.levels = response.data;
     });
+    $scope.shuffle = function() {
+      return $scope.kanjis = shuffle($scope.kanjis);
+    };
     $scope.pickLevel = function(level) {
       $scope.pickedLevel = level;
       return $http({
@@ -86,7 +105,17 @@
         return setMeaningState(kanji, 'meaning', 'failed');
       }
     };
-    $scope.revealKunyomi = function(kanji) {
+    $scope.kunyomiUpdated = function(kanji) {
+      if ($scope.rocketMode) {
+        return $scope.revealKunyomi(kanji, true);
+      }
+    };
+    $scope.onyomiUpdated = function(kanji) {
+      if ($scope.rocketMode) {
+        return $scope.revealOnyomi(kanji, true);
+      }
+    };
+    $scope.revealKunyomi = function(kanji, safeMode) {
       var anyMatches, val;
       val = wanakana.toKana(($scope.kunyomis[kanji.name] || '').toUpperCase());
       anyMatches = kanji.kunyomi.some((function(_this) {
@@ -96,11 +125,11 @@
       })(this));
       if (anyMatches) {
         return setMeaningState(kanji, 'kunyomi', 'success');
-      } else {
+      } else if (!safeMode) {
         return setMeaningState(kanji, 'kunyomi', 'failed');
       }
     };
-    $scope.revealOnyomi = function(kanji) {
+    $scope.revealOnyomi = function(kanji, safeMode) {
       var anyMatches, val;
       val = wanakana.toKana($scope.onyomis[kanji.name] || '');
       anyMatches = kanji.onyomi.some((function(_this) {
@@ -110,7 +139,7 @@
       })(this));
       if (anyMatches) {
         return setMeaningState(kanji, 'onyomi', 'success');
-      } else {
+      } else if (!safeMode) {
         return setMeaningState(kanji, 'onyomi', 'failed');
       }
     };
