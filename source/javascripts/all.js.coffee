@@ -36,7 +36,14 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     $scope.onyomis = {}
     $scope.kanjis = []
 
+    $scope.doneKanjis = { success: [], failed: [], mixed: [] }
+
+    $scope.levelKanjis = $scope.kanjis.map( ( kanji ) -> kanji.name )
+
   resetLevel()
+
+  findKanji = (kanjiName) ->
+    $scope.kanjis.find( (kanji) -> kanji.name == kanjiName )
 
   $http
     method: 'GET',
@@ -45,7 +52,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     $scope.levels = response.data
 
   $scope.shuffle = ->
-    $scope.kanjis = shuffle $scope.kanjis
+    $scope.levelKanjis = shuffle $scope.levelKanjis
 
   $scope.pickLevel = ( level ) ->
     $scope.pickedLevel = level
@@ -56,24 +63,38 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     .then ( response ) ->
       resetLevel()
       $scope.kanjis = response.data
+      $scope.levelKanjis = $scope.kanjis.map( ( kanji ) -> kanji.name )
       focus()
 
   updateRowStatus = ( kanji ) ->
     stats = { failed: 0, success: 0 }
+    kanjiName = kanji.name
 
-    stats[ $scope.touchedKanjis[ kanji.name ].meaning ] += 1
-    stats[ $scope.touchedKanjis[ kanji.name ].kunyomi ] += 1
-    stats[ $scope.touchedKanjis[ kanji.name ].onyomi  ] += 1
+    stats[ $scope.touchedKanjis[ kanjiName ].meaning ] += 1
+    stats[ $scope.touchedKanjis[ kanjiName ].kunyomi ] += 1
+    stats[ $scope.touchedKanjis[ kanjiName ].onyomi  ] += 1
 
     if stats.failed + stats.success == 3
       console.log stats
       switch stats.failed
+
         # All failed
-        when 3 then $scope.touchedKanjis[ kanji.name ].status = 'failed'
+        when 3
+          $scope.touchedKanjis[ kanjiName ].status = 'failed'
+          $scope.doneKanjis.failed.push kanjiName
+
         # All succeed
-        when 0 then $scope.touchedKanjis[ kanji.name ].status = 'success'
+        when 0
+          $scope.touchedKanjis[ kanjiName ].status = 'success'
+          $scope.doneKanjis.success.push kanjiName
+
         # Mixed
-        else        $scope.touchedKanjis[ kanji.name ].status = 'mixed'
+        else
+          $scope.touchedKanjis[ kanjiName ].status = 'mixed'
+          $scope.doneKanjis.mixed.push kanjiName
+
+      index = $scope.levelKanjis.indexOf kanjiName
+      $scope.levelKanjis.splice index, 1
 
   setMeaningState = ( kanji, type, status ) ->
     $scope.touchedKanjis[ kanji.name ] ||= {}
@@ -98,7 +119,8 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     if $scope.rocketMode
       $scope.revealOnyomi kanji, true
 
-  $scope.revealKunyomi = ( kanji, safeMode ) ->
+  $scope.revealKunyomi = ( kanjiName, safeMode ) ->
+    kanji = findKanji kanjiName
     val = wanakana.toKana( ( $scope.kunyomis[ kanji.name ] || '' ).toUpperCase() )
 
     anyMatches = kanji.kunyomi.some ( reading ) =>
@@ -109,7 +131,8 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     else if !safeMode
       setMeaningState kanji, 'kunyomi', 'failed'
 
-  $scope.revealOnyomi = ( kanji, safeMode ) ->
+  $scope.revealOnyomi = ( kanjiName, safeMode ) ->
+    kanji = findKanji kanjiName
     val = wanakana.toKana( $scope.onyomis[ kanji.name ] || '' )
 
     anyMatches = kanji.onyomi.some ( reading ) =>
@@ -120,7 +143,8 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     else if !safeMode
       setMeaningState kanji, 'onyomi', 'failed'
 
-  $scope.meaningUpdated = ( kanji ) ->
+  $scope.meaningUpdated = ( kanjiName ) ->
+    kanji = findKanji kanjiName
     anyMatches = kanji.meanings.some ( meaning ) =>
       same $scope.meanings[ kanji.name ], meaning
 

@@ -27,20 +27,35 @@
             button.btn.btn-secondary ng-click="rocketMode = !rocketMode" ng-class="rocketMode && 'active'"
               i.fa.fa-rocket
   ul.list-group.list-group-flush
-    li.list-group-item {
-      ng-repeat="kanji in kanjis"
-      ng-class="{ success: 'list-group-item-success', failed: 'list-group-item-danger', mixed: 'list-group-item-warning' }[ touchedKanjis[ kanji.name ].status ]"
-      }
+    li.list-group-item.list-group-item-success ng-show="doneKanjis.success.length"
+      .row
+        .col-md-12.center-block
+          h4.done-kanjis.text-xs-center
+            span.label.label-success ng-repeat="kanji in doneKanjis.success"
+              | {{ kanji }}
+    li.list-group-item.list-group-item-warning ng-show="doneKanjis.mixed.length"
+      .row
+        .col-md-12.center-block
+          h4.done-kanjis.text-xs-center
+            span.label.label-warning ng-repeat="kanji in doneKanjis.mixed"
+              | {{ kanji }}
+    li.list-group-item.list-group-item-danger ng-show="doneKanjis.failed.length"
+      .row
+        .col-md-12.center-block
+          h4.done-kanjis.text-xs-center
+            span.label.label-danger ng-repeat="kanji in doneKanjis.failed"
+              | {{ kanji }}
+    li.list-group-item ng-repeat="kanji in levelKanjis | limitTo: 10"
       .row
         .col-md-1
           h2
-            span.label.label-default.center-block {
-              ng-class="{ success: 'label-success', failed: 'label-danger', mixed: 'label-warning' }[ touchedKanjis[ kanji.name ].status ] || 'label-default'"
+            span.label.center-block {
+              ng-class="{ success: 'label-success', failed: 'label-danger', mixed: 'label-warning' }[ touchedKanjis[ kanji ].status ] || 'label-default'"
               }
 
-              | {{ kanji.name }}
+              | {{ kanji }}
         .col-md-5
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].meaning ]"
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].meaning ]"
             input.form-control {
               type="text"
               required=true
@@ -50,19 +65,19 @@
               autocapitalize="off"
               spellcheck="false"
               on-enter="revealMeaning( kanji )"
-              ng-model="meanings[ kanji.name ]"
-              ng-disabled="touchedKanjis[ kanji.name ].meaning"
-              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].meaning ]"
+              ng-model="meanings[ kanji ]"
+              ng-disabled="touchedKanjis[ kanji ].meaning"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji ].meaning ]"
               }
             .input-group-btn
               button.btn.btn-secondary {
                 data-title="Show answer"
                 ng-click="revealMeaning( kanji )"
-                ng-disabled="touchedKanjis[ kanji.name ].meaning"
+                ng-disabled="touchedKanjis[ kanji ].meaning"
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].kunyomi ]"
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].kunyomi ]"
             input.form-control {
               type="text"
               required="true"
@@ -74,19 +89,19 @@
               on-enter="revealKunyomi( kanji, false )"
               to-hiragana=true
               ng-change="kunyomiUpdated( kanji )"
-              ng-model="kunyomis[ kanji.name ]"
-              ng-disabled="touchedKanjis[ kanji.name ].kunyomi"
-              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].kunyomi ]"
+              ng-model="kunyomis[ kanji ]"
+              ng-disabled="touchedKanjis[ kanji ].kunyomi"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji ].kunyomi ]"
               }
             .input-group-btn
               button.btn.btn-secondary {
                 data-title="Show answer"
                 ng-click="revealKunyomi( kanji, false )"
-                ng-disabled="touchedKanjis[ kanji.name ].kunyomi"
+                ng-disabled="touchedKanjis[ kanji ].kunyomi"
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji.name ].onyomi ]"
+          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].onyomi ]"
             input.form-control {
               type="text"
               required="true"
@@ -98,15 +113,19 @@
               on-enter="revealOnyomi( kanji, false )"
               to-katakana=true
               ng-change="onyomiUpdated( kanji )"
-              ng-model="onyomis[ kanji.name ]"
-              ng-disabled="touchedKanjis[ kanji.name ].onyomi"
-              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji.name ].onyomi ]"
+              ng-model="onyomis[ kanji ]"
+              ng-disabled="touchedKanjis[ kanji ].onyomi"
+              ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji ].onyomi ]"
               }
             .input-group-btn
               button.btn.btn-secondary {
                 data-title="Show answer"
                 ng-click="revealOnyomi( kanji, false )"
-                ng-disabled="touchedKanjis[ kanji.name ].onyomi"
+                ng-disabled="touchedKanjis[ kanji ].onyomi"
                 }
                 i.fa.fa-eye
   .card-footer
+    .center-block ng-show="levelKanjis.length > 10"
+      h4.done-kanjis.text-xs-center
+        span.label.label-default ng-repeat="kanji in levelKanjis | limitTo:1000:10"
+          | {{ kanji }}
