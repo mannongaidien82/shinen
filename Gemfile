@@ -10,3 +10,4 @@ gem 'rake'
 
 gem 'slim'
 gem 'sass'
+gem 'json-minify'
