@@ -15,7 +15,7 @@
   focus = function() {
     return setTimeout((function() {
       return $('input:enabled').first().focus();
-    }), 100);
+    }), 1000);
   };
 
   shuffle = function(array) {
@@ -124,8 +124,10 @@
       updateRowStatus(kanji);
       return focus();
     };
-    $scope.revealMeaning = function(kanji) {
-      if (!$scope.meaningUpdated(kanji)) {
+    $scope.revealMeaning = function(kanjiName) {
+      var kanji;
+      if (!$scope.meaningUpdated(kanjiName)) {
+        kanji = findKanji(kanjiName);
         return setMeaningState(kanji, 'meaning', 'failed');
       }
     };
