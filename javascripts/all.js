@@ -32,16 +32,29 @@
   };
 
   Shinen.controller('levelsCtrl', function($scope, $http) {
-    var resetLevel, setMeaningState, updateRowStatus;
+    var findKanji, resetLevel, setMeaningState, updateRowStatus;
     $scope.rocketMode = false;
     resetLevel = function() {
       $scope.touchedKanjis = {};
       $scope.meanings = {};
       $scope.kunyomis = {};
       $scope.onyomis = {};
-      return $scope.kanjis = [];
+      $scope.kanjis = [];
+      $scope.doneKanjis = {
+        success: [],
+        failed: [],
+        mixed: []
+      };
+      return $scope.levelKanjis = $scope.kanjis.map(function(kanji) {
+        return kanji.name;
+      });
     };
     resetLevel();
+    findKanji = function(kanjiName) {
+      return $scope.kanjis.find(function(kanji) {
+        return kanji.name === kanjiName;
+      });
+    };
     $http({
       method: 'GET',
       url: 'resources/levels.json'
@@ -49,7 +62,7 @@
       return $scope.levels = response.data;
     });
     $scope.shuffle = function() {
-      return $scope.kanjis = shuffle($scope.kanjis);
+      return $scope.levelKanjis = shuffle($scope.levelKanjis);
     };
     $scope.pickLevel = function(level) {
       $scope.pickedLevel = level;
@@ -59,28 +72,39 @@
       }).then(function(response) {
         resetLevel();
         $scope.kanjis = response.data;
+        $scope.levelKanjis = $scope.kanjis.map(function(kanji) {
+          return kanji.name;
+        });
         return focus();
       });
     };
     updateRowStatus = function(kanji) {
-      var stats;
+      var index, kanjiName, stats;
       stats = {
         failed: 0,
         success: 0
       };
-      stats[$scope.touchedKanjis[kanji.name].meaning] += 1;
-      stats[$scope.touchedKanjis[kanji.name].kunyomi] += 1;
-      stats[$scope.touchedKanjis[kanji.name].onyomi] += 1;
+      kanjiName = kanji.name;
+      stats[$scope.touchedKanjis[kanjiName].meaning] += 1;
+      stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
+      stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
       if (stats.failed + stats.success === 3) {
         console.log(stats);
         switch (stats.failed) {
           case 3:
-            return $scope.touchedKanjis[kanji.name].status = 'failed';
+            $scope.touchedKanjis[kanjiName].status = 'failed';
+            $scope.doneKanjis.failed.push(kanjiName);
+            break;
           case 0:
-            return $scope.touchedKanjis[kanji.name].status = 'success';
+            $scope.touchedKanjis[kanjiName].status = 'success';
+            $scope.doneKanjis.success.push(kanjiName);
+            break;
           default:
-            return $scope.touchedKanjis[kanji.name].status = 'mixed';
+            $scope.touchedKanjis[kanjiName].status = 'mixed';
+            $scope.doneKanjis.mixed.push(kanjiName);
         }
+        index = $scope.levelKanjis.indexOf(kanjiName);
+        return $scope.levelKanjis.splice(index, 1);
       }
     };
     setMeaningState = function(kanji, type, status) {
@@ -115,8 +139,9 @@
         return $scope.revealOnyomi(kanji, true);
       }
     };
-    $scope.revealKunyomi = function(kanji, safeMode) {
-      var anyMatches, val;
+    $scope.revealKunyomi = function(kanjiName, safeMode) {
+      var anyMatches, kanji, val;
+      kanji = findKanji(kanjiName);
       val = wanakana.toKana(($scope.kunyomis[kanji.name] || '').toUpperCase());
       anyMatches = kanji.kunyomi.some((function(_this) {
         return function(reading) {
@@ -129,8 +154,9 @@
         return setMeaningState(kanji, 'kunyomi', 'failed');
       }
     };
-    $scope.revealOnyomi = function(kanji, safeMode) {
-      var anyMatches, val;
+    $scope.revealOnyomi = function(kanjiName, safeMode) {
+      var anyMatches, kanji, val;
+      kanji = findKanji(kanjiName);
       val = wanakana.toKana($scope.onyomis[kanji.name] || '');
       anyMatches = kanji.onyomi.some((function(_this) {
         return function(reading) {
@@ -143,8 +169,9 @@
         return setMeaningState(kanji, 'onyomi', 'failed');
       }
     };
-    return $scope.meaningUpdated = function(kanji) {
-      var anyMatches;
+    return $scope.meaningUpdated = function(kanjiName) {
+      var anyMatches, kanji;
+      kanji = findKanji(kanjiName);
       anyMatches = kanji.meanings.some((function(_this) {
         return function(meaning) {
           return same($scope.meanings[kanji.name], meaning);
