@@ -8,7 +8,7 @@ same = ( fst, snd ) ->
 focus = ->
   setTimeout ( ->
     $('input:enabled').first().focus()
-  ), 100
+  ), 1000
 
 shuffle = (array) ->
   currentIndex = array.length
@@ -107,8 +107,9 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     updateRowStatus kanji
     focus()
 
-  $scope.revealMeaning = ( kanji ) ->
-    unless $scope.meaningUpdated( kanji )
+  $scope.revealMeaning = ( kanjiName ) ->
+    unless $scope.meaningUpdated( kanjiName )
+      kanji = findKanji kanjiName
       setMeaningState kanji, 'meaning', 'failed'
 
   $scope.kunyomiUpdated = ( kanji ) ->
