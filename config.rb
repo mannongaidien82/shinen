@@ -19,9 +19,12 @@ class MinifyJsonExtension < ::Middleman::Extension
     def call(env)
       status, headers, response = @app.call(env)
       if 'application/json' == headers[ 'Content-Type' ]
-        minified = JSON.minify ::Middleman::Util.extract_response_text( response )
-        headers['Content-Length'] = ::Rack::Utils.bytesize(minified).to_s
-        response = [minified]
+        begin
+          minified = JSON.minify ::Middleman::Util.extract_response_text( response )
+          headers['Content-Length'] = ::Rack::Utils.bytesize(minified).to_s
+          response = [minified]
+        rescue Exception => e
+        end
       end
       return status, headers, response
     end
