@@ -1,25 +1,50 @@
 .row ng-controller='newsCtrl'
   .col-md-12
     nav.navbar.navbar-light.bg-faded
-      button.navbar-toggler type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
+      button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
+      .navbar-brand Easy News
   .col-md-8
-  .col-md-4
+    <p uib-popover="I am activated manually" popover-is-open="popoverIsOpen" ng-click="popoverIsOpen = !popoverIsOpen" type="button" class="btn btn-default">Toggle popover</p>
 
-    uib-accordion
-      ul.list-group.collapse.in
-        uib-accordion-group ng-repeat="( date, dailyNews ) in news" template-url="daily-news-template.html" is-open="$first"
+    div ng-repeat="unit in article.morph"
+      div ng-switch='unit.class'
+        div.pull-left ng-switch-when="L" uib-popover="{{ unit.ruby[ 0 ].r }}"
+          p style="color: blue;"
+            | {{ unit.word }}
+        div.pull-left ng-switch-when="B"
+          | {{ unit.word }}
+
+        div.pull-left style="color: fuchsia;" ng-switch-when="F"
+          | {{ unit.word }}
+        div.pull-left style="color: bisque;" ng-switch-when="0"
+          | {{ unit.word }}
+        div.pull-left style="color: lime;" ng-switch-when="1"
+          | {{ unit.word }}
+        div.pull-left style="color: gold;" ng-switch-when="2"
+          | {{ unit.word }}
+        div.pull-left style="color: grey;" ng-switch-when="3"
+          | {{ unit.word }}
+        div.pull-left style="color: green;" ng-switch-when="4"
+          | {{ unit.word }}
+        div.pull-left style="color: red;" ng-switch-default=''
+          div ng-if="unit.class"
+            | {{ unit.word }}
+
+  .col-md-4 style="display: none;"
+    #news-sidebar.list-group.collapse.in
+      uib-accordion
+        uib-accordion-group heading="{{ date }}" ng-repeat="( date, dailyNews ) in news" template-url="daily-news-template.html" is-open="$first"
           uib-accordion-heading
             span.label.label-default.label-pill.pull-xs-right
               | {{ dailyNews.length }}
             | {{ date }}
 
-          li.list-group-item ng-repeat="node in dailyNews"
+          a.list-group-item href='#' ng-repeat="node in dailyNews" ng-click="setArticle( node.id )" ng-class="{ 'active': openArticleID == node.id }"
             | {{ node.title }}
 
 script type="text/ng-template" id="daily-news-template.html"
   div
-    a href="#"
-      li.list-group-item data-ng-click="toggleOpen()" data-uib-accordion-transclude="heading"
-        div uib-accordion-header=''
+    a.list-group-item data-ng-click="toggleOpen()" data-uib-accordion-transclude="heading" href="#news-day-{{ heading }}" id="news-day-{{ heading }}"
+      div uib-accordion-header=''
     div class="panel-collapse collapse" data-uib-collapse="!isOpen"
       div[data-ng-transclude]

@@ -1,4 +1,10 @@
-window.Shinen = angular.module 'Shinen', [ 'ui.bootstrap' ]
+window.Shinen = angular.module 'Shinen', [
+  'ngCookies',
+  'ngRoute',
+  'ngSanitize',
+  'ngAnimate',
+  'ui.bootstrap'
+]
 
 same = ( fst, snd ) ->
   return false unless fst
@@ -27,30 +33,28 @@ shuffle = (array) ->
   return array
 
 Shinen.controller 'newsCtrl', ( $scope, $http ) ->
-  $scope.a = 23
+  $scope.news = {}
 
-  $scope.news = {
-    '2016-06-15': [
-      { id: '123', title: "フランス　車が大勢の中に走ってきて８４人が亡くなる" },
-      { id: '123', title: "東京都の知事を選ぶ選挙に２１人が立候補" },
-      { id: '123', title: "ＬＩＮＥがニューヨークと東京の証券取引所に上場" },
-      { id: '123', title: "日産自動車　自動運転の技術を使った車を初めて売る" },
-      { id: '123', title: "地震などで避難したときに食べる「災害食」のコンテスト" }
-    ],
-    '2016-06-14': [
-      { id: '123', title: "熊本県で大きな地震が起こってから３か月" },
-      { id: '123', title: "イギリスの新しい首相は女性のメイさん" },
-      { id: '123', title: "アメリカ　ゲーム「ポケモンＧＯ」の人気がすごい" },
-      { id: '123', title: "ビールを飲む人が少しだけ増えた" }
-    ],
-    '2016-06-13': [
-      { id: '123', title: "仲裁裁判所「南シナ海は中国のものと言えない」" },
-      { id: '123', title: "赤ちゃんがすぐ飲める「ヨウ素剤」を国が準備する" },
-      { id: '123', title: "１９歳の大学生が７つの大陸のいちばん高い山全部に登る" },
-      { id: '123', title: "東京の池袋に「ゴジラ」の大きな足の像ができる" },
-      { id: '123', title: "シンガポール　水道や下水などの技術を紹介するイベント" }
-    ]
-  }
+  loadArticle = ( id ) ->
+    $http
+      method: 'GET',
+      url: "resources/#{ id }.out.json"
+    .then ( response ) ->
+      $scope.article = response.data
+
+  loadArticle 'k10010595081000'
+
+  $http
+    method: 'GET',
+    url: "resources/news-list.json"
+  .then ( response ) ->
+    $scope.news = {}
+    for date, news of $scope.kanjis = response.data[ 0 ]
+      $scope.news[ date ] = news.map( ( article ) -> { id: article.news_id, title: article.title } )
+
+  $scope.setArticle = ( id ) ->
+    console.log id
+    $scope.openArticleID = id
 
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false
