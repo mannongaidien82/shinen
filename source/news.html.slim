@@ -1,0 +1,25 @@
+.row ng-controller='newsCtrl'
+  .col-md-12
+    nav.navbar.navbar-light.bg-faded
+      button.navbar-toggler type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
+  .col-md-8
+  .col-md-4
+
+    uib-accordion
+      ul.list-group.collapse.in
+        uib-accordion-group ng-repeat="( date, dailyNews ) in news" template-url="daily-news-template.html" is-open="$first"
+          uib-accordion-heading
+            span.label.label-default.label-pill.pull-xs-right
+              | {{ dailyNews.length }}
+            | {{ date }}
+
+          li.list-group-item ng-repeat="node in dailyNews"
+            | {{ node.title }}
+
+script type="text/ng-template" id="daily-news-template.html"
+  div
+    a href="#"
+      li.list-group-item data-ng-click="toggleOpen()" data-uib-accordion-transclude="heading"
+        div uib-accordion-header=''
+    div class="panel-collapse collapse" data-uib-collapse="!isOpen"
+      div[data-ng-transclude]
