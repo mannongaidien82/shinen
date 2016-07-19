@@ -1,7 +1,7 @@
 (function() {
   var focus, same, shuffle;
 
-  window.Shinen = angular.module('Shinen', []);
+  window.Shinen = angular.module('Shinen', ['ngCookies', 'ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']);
 
   same = function(fst, snd) {
     var distance;
@@ -30,6 +30,43 @@
     }
     return array;
   };
+
+  Shinen.controller('newsCtrl', function($scope, $http) {
+    var loadArticle;
+    $scope.news = {};
+    loadArticle = function(id) {
+      return $http({
+        method: 'GET',
+        url: "resources/" + id + ".out.json"
+      }).then(function(response) {
+        return $scope.article = response.data;
+      });
+    };
+    loadArticle('k10010595081000');
+    $http({
+      method: 'GET',
+      url: "resources/news-list.json"
+    }).then(function(response) {
+      var date, news, ref, results;
+      $scope.news = {};
+      ref = $scope.kanjis = response.data[0];
+      results = [];
+      for (date in ref) {
+        news = ref[date];
+        results.push($scope.news[date] = news.map(function(article) {
+          return {
+            id: article.news_id,
+            title: article.title
+          };
+        }));
+      }
+      return results;
+    });
+    return $scope.setArticle = function(id) {
+      console.log(id);
+      return $scope.openArticleID = id;
+    };
+  });
 
   Shinen.controller('levelsCtrl', function($scope, $http) {
     var findKanji, resetLevel, setMeaningState, updateRowStatus;
