@@ -62,9 +62,32 @@
       }
       return results;
     });
-    return $scope.setArticle = function(id) {
+    $scope.setArticle = function(id) {
       console.log(id);
       return $scope.openArticleID = id;
+    };
+    $scope.wordDefinition = {};
+    return $scope.findDef = function(word) {
+      if ($scope.wordDefinition[word]) {
+        return;
+      }
+      return $http({
+        method: 'GET',
+        url: "http://cors.io/?u=http://jisho.org/api/v1/search/words?keyword=" + word + ".json"
+      }).then(function(response) {
+        return $scope.wordDefinition[word] = response.data.data.map(function(def, i, datum) {
+          var english_defs, prefix;
+          if (datum.length > 1) {
+            prefix = (i + 1) + ") ";
+          } else {
+            prefix = '';
+          }
+          english_defs = def.senses.map(function(sense) {
+            return sense.english_definitions.join(', ');
+          });
+          return "" + prefix + (english_defs.join(', '));
+        }).join("\n");
+      });
     };
   });
 
