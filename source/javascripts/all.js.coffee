@@ -64,7 +64,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     # url: "resources/#{ word }.json"
     $http
       method: 'GET',
-      url: "http://cors.io/?u=http://jisho.org/api/v1/search/words?keyword=#{ word }.json"
+      url: "https://crossorigin.me/http://jisho.org/api/v1/search/words?keyword=#{ word }.json"
     .then ( response ) ->
       $scope.wordDefinition[ word ] = response.data.data.map( ( def, i, datum ) ->
         if datum.length > 1
