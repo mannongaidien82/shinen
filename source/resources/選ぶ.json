@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "status": 200
+  },
+  "data": [
+    {
+      "is_common": true,
+      "tags": [
+        "wanikani13"
+      ],
+      "japanese": [
+        {
+          "word": "\u9078\u3076",
+          "reading": "\u3048\u3089\u3076"
+        },
+        {
+          "word": "\u64b0\u3076",
+          "reading": "\u3048\u3089\u3076"
+        },
+        {
+          "word": "\u629e\u3076",
+          "reading": "\u3048\u3089\u3076"
+        }
+      ],
+      "senses": [
+        {
+          "english_definitions": [
+            "to choose",
+            "to select"
+          ],
+          "parts_of_speech": [
+            "Godan verb with bu ending",
+            "Transitive verb"
+          ],
+          "links": [
+
+          ],
+          "tags": [
+
+          ],
+          "restrictions": [
+
+          ],
+          "see_also": [
+
+          ],
+          "antonyms": [
+
+          ],
+          "source": [
+
+          ],
+          "info": [
+
+          ]
+        }
+      ],
+      "attribution": {
+        "jmdict": true,
+        "jmnedict": false,
+        "dbpedia": false
+      }
+    },
+    {
+      "is_common": false,
+      "tags": [
+
+      ],
+      "japanese": [
+        {
+          "word": "\u9078\u3076\u3068\u3053\u308d\u304c\u306a\u3044",
+          "reading": "\u3048\u3089\u3076\u3068\u3053\u308d\u304c\u306a\u3044"
+        },
+        {
+          "word": "\u9078\u3076\u6240\u304c\u306a\u3044",
+          "reading": "\u3048\u3089\u3076\u3068\u3053\u308d\u304c\u306a\u3044"
+        }
+      ],
+      "senses": [
+        {
+          "english_definitions": [
+            "being the same thing (as)",
+            "being indistinguishable (from)"
+          ],
+          "parts_of_speech": [
+            "Expression"
+          ],
+          "links": [
+
+          ],
+          "tags": [
+            "Idiomatic expression"
+          ],
+          "restrictions": [
+
+          ],
+          "see_also": [
+
+          ],
+          "antonyms": [
+
+          ],
+          "source": [
+
+          ],
+          "info": [
+
+          ]
+        }
+      ],
+      "attribution": {
+        "jmdict": true,
+        "jmnedict": false,
+        "dbpedia": false
+      }
+    }
+  ]
+}

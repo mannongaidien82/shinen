@@ -56,6 +56,26 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     console.log id
     $scope.openArticleID = id
 
+  $scope.wordDefinition = {}
+
+  $scope.findDef = ( word ) ->
+    return if $scope.wordDefinition[ word ]
+
+    # url: "resources/#{ word }.json"
+    $http
+      method: 'GET',
+      url: "http://cors.io/?u=http://jisho.org/api/v1/search/words?keyword=#{ word }.json"
+    .then ( response ) ->
+      $scope.wordDefinition[ word ] = response.data.data.map( ( def, i, datum ) ->
+        if datum.length > 1
+          prefix = "#{ i + 1 }) "
+        else
+          prefix = ''
+
+        english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
+        "#{ prefix }#{ english_defs.join( ', ' ) }"
+      ).join( "\n" )
+
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false
 

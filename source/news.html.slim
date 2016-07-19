@@ -4,10 +4,8 @@
       button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
       .navbar-brand Easy News
   .col-md-8
-    <p uib-popover="I am activated manually" popover-is-open="popoverIsOpen" ng-click="popoverIsOpen = !popoverIsOpen" type="button" class="btn btn-default">Toggle popover</p>
-
     div ng-repeat="unit in article.morph"
-      div ng-switch='unit.class'
+      div.word-defenition ng-switch='unit.class'
         div.pull-left ng-switch-when="L" uib-popover="{{ unit.ruby[ 0 ].r }}"
           p style="color: blue;"
             | {{ unit.word }}
@@ -22,8 +20,14 @@
           | {{ unit.word }}
         div.pull-left style="color: gold;" ng-switch-when="2"
           | {{ unit.word }}
-        div.pull-left style="color: grey;" ng-switch-when="3"
-          | {{ unit.word }}
+        div.pull-left {
+          ng-switch-when="3"
+          uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
+          popover-is-open="popoverIsOpen"
+          ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
+          }
+          p  style="color: grey;"
+            | {{ unit.word }}
         div.pull-left style="color: green;" ng-switch-when="4"
           | {{ unit.word }}
         div.pull-left style="color: red;" ng-switch-default=''
