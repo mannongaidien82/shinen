@@ -73,7 +73,7 @@
       }
       return $http({
         method: 'GET',
-        url: "http://cors.io/?u=http://jisho.org/api/v1/search/words?keyword=" + word + ".json"
+        url: "https://crossorigin.me/http://jisho.org/api/v1/search/words?keyword=" + word + ".json"
       }).then(function(response) {
         return $scope.wordDefinition[word] = response.data.data.map(function(def, i, datum) {
           var english_defs, prefix;
