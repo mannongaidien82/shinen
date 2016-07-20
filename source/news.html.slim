@@ -4,35 +4,28 @@
       button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
       .navbar-brand Easy News
   .col-md-8
-    div ng-repeat="unit in article.morph"
-      div.word-defenition ng-switch='unit.class'
-        div.pull-left ng-switch-when="L" uib-popover="{{ unit.ruby[ 0 ].r }}"
-          p style="color: blue;"
-            | {{ unit.word }}
-        div.pull-left ng-switch-when="B"
-          | {{ unit.word }}
+    .word-defenition
+      ng-switch on="unit.class || ''" ng-repeat="unit in article.morph"
+        .word.location ng-switch-when='L' uib-popover="{{ unit.ruby[ 0 ].r }}" {{ unit.word }}
+        .word.company ng-switch-when='C' {{ unit.word }}
+        br ng-switch-when="" ng-if="unit.word == '<S>'"
 
-        div.pull-left style="color: fuchsia;" ng-switch-when="F"
-          | {{ unit.word }}
-        div.pull-left style="color: bisque;" ng-switch-when="0"
-          | {{ unit.word }}
-        div.pull-left style="color: lime;" ng-switch-when="1"
-          | {{ unit.word }}
-        div.pull-left style="color: gold;" ng-switch-when="2"
-          | {{ unit.word }}
-        div.pull-left {
+        .word ng-switch-when="B" {{ unit.word }}
+        .word style="color: fuchsia;" ng-switch-when="F" {{ unit.word }}
+        .word style="color: bisque;" ng-switch-when="0" {{ unit.word }}
+        .word style="color: lime;" ng-switch-when="1" {{ unit.word }}
+        .word style="color: gold;" ng-switch-when="2" {{ unit.word }}
+        .word {
           ng-switch-when="3"
           uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
           popover-is-open="popoverIsOpen"
           ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
           }
-          p  style="color: grey;"
+          div style="color: grey;"
             | {{ unit.word }}
-        div.pull-left style="color: green;" ng-switch-when="4"
+        .word style="color: green;" ng-switch-when="4"
           | {{ unit.word }}
-        div.pull-left style="color: red;" ng-switch-default=''
-          div ng-if="unit.class"
-            | {{ unit.word }}
+        .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
 
   .col-md-4 style="display: none;"
     #news-sidebar.list-group.collapse.in

@@ -22,7 +22,21 @@
 }
 
 .word-defenition {
+  .word {
+    display: inline-block;
+  }
+
+  .location { color: blue; }
+  .company  { color: purple; }
+  .unknown-type {
+    color: red;
+    font-size: 20px;
+  }
+
   .popover-content {
     white-space: pre-wrap;
+    max-height: 50px;
+    max-width: 150px;
+    overflow-y: scroll;
   }
 }

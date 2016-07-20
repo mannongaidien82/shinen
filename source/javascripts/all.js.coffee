@@ -42,7 +42,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     .then ( response ) ->
       $scope.article = response.data
 
-  loadArticle 'k10010595081000'
+  loadArticle 'k10010600041000'
 
   $http
     method: 'GET',
@@ -74,7 +74,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
 
         english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
         "#{ prefix }#{ english_defs.join( ', ' ) }"
-      ).join( "\n" )
+      ).slice( 0, 3 ).join( "\n" )
 
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false
