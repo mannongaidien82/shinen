@@ -42,7 +42,7 @@
         return $scope.article = response.data;
       });
     };
-    loadArticle('k10010595081000');
+    loadArticle('k10010600041000');
     $http({
       method: 'GET',
       url: "resources/news-list.json"
@@ -86,7 +86,7 @@
             return sense.english_definitions.join(', ');
           });
           return "" + prefix + (english_defs.join(', '));
-        }).join("\n");
+        }).slice(0, 3).join("\n");
       });
     };
   });
