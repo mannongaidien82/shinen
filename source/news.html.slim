@@ -1,10 +1,17 @@
 .row ng-controller='newsCtrl'
   .col-md-12
     nav.navbar.navbar-light.bg-faded
-      button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
       .navbar-brand Easy News
+      ul.nav.navbar-nav
+        li.nav-item
+          .btn-group
+            button.btn.btn-secondary ng-click="highlightMode = !highlightMode"
+              i.fa.fa-question-circle ng-show="highlightMode"
+              i.fa.fa-question-circle-o ng-show="!highlightMode"
+
+      button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
   .col-md-8
-    .word-defenition
+    .news-article ng-class="{ 'word-highlight': highlightMode }"
       ng-switch on="unit.class || ''" ng-repeat="unit in article.morph"
         .word.location ng-switch-when='L' uib-popover="{{ unit.ruby[ 0 ].r }}" {{ unit.word }}
         .word.company ng-switch-when='C' {{ unit.word }}

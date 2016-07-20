@@ -34,6 +34,7 @@ shuffle = (array) ->
 
 Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.news = {}
+  $scope.highlightMode = true
 
   loadArticle = ( id ) ->
     $http

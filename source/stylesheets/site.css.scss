@@ -21,17 +21,20 @@
   }
 }
 
-.word-defenition {
-  .word {
-    display: inline-block;
-  }
-
+.word-highlight {
   .location { color: blue; }
   .company  { color: purple; }
   .unknown-type {
     color: red;
     font-size: 20px;
   }
+}
+
+.news-article {
+  .word {
+    display: inline-block;
+  }
+
 
   .popover-content {
     white-space: pre-wrap;
