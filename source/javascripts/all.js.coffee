@@ -35,6 +35,7 @@ shuffle = (array) ->
 Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.news = {}
   $scope.highlightMode = true
+  $scope.furiganaMode = true
 
   loadArticle = ( id ) ->
     $http
@@ -43,7 +44,8 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     .then ( response ) ->
       $scope.article = response.data
 
-  loadArticle 'k10010600041000'
+  # loadArticle 'k10010600041000'
+  loadArticle 'k10010595081000'
 
   $http
     method: 'GET',

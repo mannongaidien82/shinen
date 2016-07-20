@@ -29,12 +29,16 @@
     font-size: 20px;
   }
 }
+.hidden-furigana {
+  rt {
+    display: none;
+  }
+}
 
 .news-article {
   .word {
     display: inline-block;
   }
-
 
   .popover-content {
     white-space: pre-wrap;
