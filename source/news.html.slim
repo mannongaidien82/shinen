@@ -15,31 +15,31 @@
       button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
   .col-md-8
     .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode }"
-      ng-switch on="unit.class || ''" ng-repeat="unit in article.morph"
-        .word.location ng-switch-when='L' uib-popover="{{ unit.ruby[ 0 ].r }}"
-          ruby
-            | {{ unit.word }}
-            rt
-             | {{ unit.ruby[ 0 ].r }}
-        .word.company ng-switch-when='C' {{ unit.word }}
-        br ng-switch-when="" ng-if="unit.word == '<S>'"
+      .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
+        ng-switch on="unit.class || ''" ng-repeat="unit in chunk"
+          .word.location ng-switch-when='L'
+            ruby
+              | {{ unit.word }}
+              rt
+               | {{ unit.ruby[ 0 ].r }}
+          .word.company ng-switch-when='C' {{ unit.word }}
 
-        .word ng-switch-when="B" {{ unit.word }}
-        .word style="color: fuchsia;" ng-switch-when="F" {{ unit.word }}
-        .word style="color: bisque;" ng-switch-when="0" {{ unit.word }}
-        .word style="color: lime;" ng-switch-when="1" {{ unit.word }}
-        .word style="color: gold;" ng-switch-when="2" {{ unit.word }}
-        .word {
-          ng-switch-when="3"
-          uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
-          popover-is-open="popoverIsOpen"
-          ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
-          }
-          div style="color: grey;"
+          .word ng-switch-when="B" {{ unit.word }}
+          .word style="color: fuchsia;" ng-switch-when="F" {{ unit.word }}
+          .word style="color: bisque;" ng-switch-when="0" {{ unit.word }}
+          .word style="color: lime;" ng-switch-when="1" {{ unit.word }}
+          .word style="color: gold;" ng-switch-when="2" {{ unit.word }}
+          .word {
+            ng-switch-when="3"
+            uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
+            popover-is-open="popoverIsOpen"
+            ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
+            }
+            div style="color: grey;"
+              | {{ unit.word }}
+          .word style="color: green;" ng-switch-when="4"
             | {{ unit.word }}
-        .word style="color: green;" ng-switch-when="4"
-          | {{ unit.word }}
-        .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
+          .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
 
   .col-md-4 style="display: none;"
     #news-sidebar.list-group.collapse.in

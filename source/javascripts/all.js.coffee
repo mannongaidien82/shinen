@@ -34,6 +34,7 @@ shuffle = (array) ->
 
 Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.news = {}
+  $scope.article = {}
   $scope.highlightMode = true
   $scope.furiganaMode = true
 
@@ -42,10 +43,24 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
       method: 'GET',
       url: "resources/#{ id }.out.json"
     .then ( response ) ->
-      $scope.article = response.data
+      $scope.article = { raw: response.data }
+      chunks = []
+      chunk = []
 
-  # loadArticle 'k10010600041000'
-  loadArticle 'k10010595081000'
+      response.data.morph.forEach ( x ) ->
+        switch x.word
+          when '<S>'
+            chunk = []
+          when '</S>'
+            if chunk.length
+              chunks.push chunk
+              chunk = []
+          else
+            chunk.push x
+      $scope.article[ 'chunks' ] = chunks
+
+  loadArticle 'k10010600041000'
+  # loadArticle 'k10010595081000'
 
   $http
     method: 'GET',
@@ -78,6 +93,8 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
         english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
         "#{ prefix }#{ english_defs.join( ', ' ) }"
       ).slice( 0, 3 ).join( "\n" )
+    , ( response ) ->
+      $scope.wordDefinition[ word ] = 'Failed to find translation'
 
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false

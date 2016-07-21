@@ -36,14 +36,18 @@
 }
 
 .news-article {
-  .word {
-    display: inline-block;
-  }
+  .paragraph {
+    display: block;
 
-  .popover-content {
-    white-space: pre-wrap;
-    max-height: 50px;
-    max-width: 150px;
-    overflow-y: scroll;
+    .word {
+      display: inline-block;
+    }
+
+    .popover-content {
+      white-space: pre-wrap;
+      max-height: 50px;
+      max-width: 150px;
+      overflow-y: scroll;
+    }
   }
 }
