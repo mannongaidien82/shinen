@@ -1,5 +1,5 @@
 (function() {
-  var focus, same, shuffle;
+  var firstKey, focus, same, shuffle;
 
   window.Shinen = angular.module('Shinen', ['ngCookies', 'ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']);
 
@@ -18,6 +18,10 @@
     }), 1000);
   };
 
+  firstKey = function(obj) {
+    return obj[Object.keys(obj)[0]];
+  };
+
   shuffle = function(array) {
     var currentIndex, randomIndex, temporaryValue;
     currentIndex = array.length;
@@ -34,37 +38,61 @@
   Shinen.controller('newsCtrl', function($scope, $http) {
     var loadArticle;
     $scope.news = {};
+    $scope.article = {};
+    $scope.highlightMode = true;
+    $scope.furiganaMode = true;
+    $scope.spacingMode = false;
+    $scope.showSidebar = true;
     loadArticle = function(id) {
       return $http({
         method: 'GET',
         url: "resources/" + id + ".out.json"
       }).then(function(response) {
-        return $scope.article = response.data;
+        var chunk, chunks;
+        $scope.article = {
+          raw: response.data
+        };
+        chunks = [];
+        chunk = [];
+        response.data.morph.forEach(function(x) {
+          switch (x.word) {
+            case '<S>':
+              return chunk = [];
+            case '</S>':
+              if (chunk.length) {
+                chunks.push(chunk);
+                return chunk = [];
+              }
+              break;
+            default:
+              return chunk.push(x);
+          }
+        });
+        return $scope.article['chunks'] = chunks;
       });
     };
-    loadArticle('k10010600041000');
     $http({
       method: 'GET',
       url: "resources/news-list.json"
     }).then(function(response) {
-      var date, news, ref, results;
+      var date, firstNewsID, news, ref;
       $scope.news = {};
       ref = $scope.kanjis = response.data[0];
-      results = [];
       for (date in ref) {
         news = ref[date];
-        results.push($scope.news[date] = news.map(function(article) {
+        $scope.news[date] = news.map(function(article) {
           return {
             id: article.news_id,
             title: article.title
           };
-        }));
+        });
       }
-      return results;
+      firstNewsID = firstKey($scope.news)[0].id;
+      return $scope.setArticle(firstNewsID);
     });
     $scope.setArticle = function(id) {
-      console.log(id);
-      return $scope.openArticleID = id;
+      $scope.openArticleID = id;
+      return loadArticle(id);
     };
     $scope.wordDefinition = {};
     return $scope.findDef = function(word) {
@@ -87,6 +115,8 @@
           });
           return "" + prefix + (english_defs.join(', '));
         }).slice(0, 3).join("\n");
+      }, function(response) {
+        return $scope.wordDefinition[word] = 'Failed to find translation';
       });
     };
   });
