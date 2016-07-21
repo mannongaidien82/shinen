@@ -23,22 +23,20 @@
               rt
                | {{ unit.ruby[ 0 ].r }}
           .word.company ng-switch-when='C' {{ unit.word }}
-
           .word ng-switch-when="B" {{ unit.word }}
-          .word style="color: fuchsia;" ng-switch-when="F" {{ unit.word }}
-          .word style="color: bisque;" ng-switch-when="0" {{ unit.word }}
-          .word style="color: lime;" ng-switch-when="1" {{ unit.word }}
-          .word style="color: gold;" ng-switch-when="2" {{ unit.word }}
-          .word {
-            ng-switch-when="3"
-            uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
-            popover-is-open="popoverIsOpen"
-            ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
-            }
-            div style="color: grey;"
-              | {{ unit.word }}
-          .word style="color: green;" ng-switch-when="4"
-            | {{ unit.word }}
+          .word ng-switch-when="F" {{ unit.word }}
+
+          - %w( 0 2 3 4 ).each do |level|
+            .word.leveled-word {
+              ng-switch-when=level
+              uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
+              popover-is-open="popoverIsOpen"
+              ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
+              }
+              ruby
+                | {{ unit.word }}
+                rt
+                 | {{ unit.ruby[ 0 ].r }}
           .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
 
   .col-md-4 style="display: none;"
