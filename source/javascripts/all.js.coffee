@@ -16,6 +16,9 @@ focus = ->
     $('input:enabled').first().focus()
   ), 1000
 
+firstKey = ( obj ) ->
+  obj[ Object.keys( obj )[ 0 ] ]
+
 shuffle = (array) ->
   currentIndex = array.length
 
@@ -37,6 +40,8 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.article = {}
   $scope.highlightMode = true
   $scope.furiganaMode = true
+  $scope.spacingMode = false
+  $scope.showSidebar = true
 
   loadArticle = ( id ) ->
     $http
@@ -59,9 +64,6 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
             chunk.push x
       $scope.article[ 'chunks' ] = chunks
 
-  loadArticle 'k10010600041000'
-  # loadArticle 'k10010595081000'
-
   $http
     method: 'GET',
     url: "resources/news-list.json"
@@ -69,10 +71,12 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     $scope.news = {}
     for date, news of $scope.kanjis = response.data[ 0 ]
       $scope.news[ date ] = news.map( ( article ) -> { id: article.news_id, title: article.title } )
+    firstNewsID = firstKey( $scope.news )[ 0 ].id
+    $scope.setArticle firstNewsID
 
   $scope.setArticle = ( id ) ->
-    console.log id
     $scope.openArticleID = id
+    loadArticle id
 
   $scope.wordDefinition = {}
 

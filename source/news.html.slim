@@ -5,16 +5,18 @@
       ul.nav.navbar-nav
         li.nav-item
           .btn-group
-            button.btn.btn-secondary ng-click="highlightMode = !highlightMode"
+            a.btn.btn-secondary ng-click="highlightMode = !highlightMode" ng-class="{ 'active': highlightMode }"
               i.fa.fa-question-circle ng-show="highlightMode"
               i.fa.fa-question-circle-o ng-show="!highlightMode"
-            button.btn.btn-secondary ng-click="furiganaMode = !furiganaMode"
+            a.btn.btn-secondary ng-click="furiganaMode = !furiganaMode" ng-class="{ 'active': furiganaMode }"
               i.fa.fa-comment ng-show="furiganaMode"
               i.fa.fa-comment-o ng-show="!furiganaMode"
+            a.btn.btn-secondary ng-click="spacingMode = !spacingMode" ng-class="{ 'active': spacingMode }"
+              i.fa.fa-arrows-h
 
-      button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ☰
-  .col-md-8
-    .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode }"
+      button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ng-click="showSidebar = !showSidebar" ☰
+  div ng-class="{ 'col-md-8 hidden-sm-down': showSidebar, 'col-md-12': !showSidebar }"
+    .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode, 'spacing': spacingMode }"
       .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
         ng-switch on="unit.class || ''" ng-repeat="unit in chunk"
           .word.location ng-switch-when='L'
@@ -39,7 +41,7 @@
                  | {{ unit.ruby[ 0 ].r }}
           .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
 
-  .col-md-4 style="display: none;"
+  .col-md-4
     #news-sidebar.list-group.collapse.in
       uib-accordion
         uib-accordion-group heading="{{ date }}" ng-repeat="( date, dailyNews ) in news" template-url="daily-news-template.html" is-open="$first"

@@ -21,6 +21,10 @@
   }
 }
 
+.hidden {
+  display: none;
+}
+
 .word-highlight {
   .location { color: blue; }
   .company  { color: lightskyblue; }
@@ -33,6 +37,11 @@
 .hidden-furigana {
   rt {
     display: none;
+  }
+}
+.spacing {
+  .word {
+    margin-right: 15px;
   }
 }
 
