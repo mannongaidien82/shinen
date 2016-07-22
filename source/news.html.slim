@@ -1,6 +1,6 @@
 .row ng-controller='newsCtrl'
   .col-md-12
-    nav.navbar.navbar-light.bg-faded
+    nav.top-menu.navbar.navbar-light.bg-faded
       .navbar-brand Easy News
       ul.nav.navbar-nav
         li.nav-item
@@ -13,6 +13,12 @@
               i.fa.fa-comment-o ng-show="!furiganaMode"
             a.btn.btn-secondary ng-click="spacingMode = !spacingMode" ng-class="{ 'active': spacingMode }"
               i.fa.fa-arrows-h
+
+          .separator.btn-group
+            a.btn.btn-secondary ng-click="clickMode = 'dictionary'" ng-class="{ 'active': clickMode == 'dictionary' }"
+              i.fa.fa-language
+            a.btn.btn-secondary ng-click="clickMode = 'translation'" ng-class="{ 'active': clickMode == 'translation' }"
+              i.fa.fa-exchange
 
       button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ng-click="showSidebar = !showSidebar" ☰
   div ng-class="{ 'col-md-8 hidden-sm-down': showSidebar, 'col-md-12': !showSidebar }"

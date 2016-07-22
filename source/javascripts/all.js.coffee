@@ -47,6 +47,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.furiganaMode = true
   $scope.spacingMode = false
   $scope.showSidebar = true
+  $scope.clickMode = 'dictionary'
 
   loadArticle = ( id ) ->
     $http
@@ -56,6 +57,8 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
       $scope.article = { raw: response.data }
       chunks = []
       chunk = []
+
+      loadDictionary( id )
 
       response.data.morph.forEach ( x ) ->
         switch x.word
@@ -68,6 +71,13 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
           else
             chunk.push x
       $scope.article[ 'chunks' ] = chunks
+
+  loadDictionary = ( id ) ->
+    $http
+      method: 'GET',
+      url: ( if LOCAL_MODE then "resources/#{ id }.out.dic" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.dic" )
+    .then ( response ) ->
+      $scope.article.dic = response.data.reikai.entries
 
   $http
     method: 'GET',

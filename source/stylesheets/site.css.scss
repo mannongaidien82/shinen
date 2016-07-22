@@ -25,6 +25,12 @@
   display: none;
 }
 
+.top-menu {
+  .separator {
+    margin-left: 1rem;
+  }
+}
+
 .word-highlight {
   .location { color: blue; }
   .company  { color: lightskyblue; }
