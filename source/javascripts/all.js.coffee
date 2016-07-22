@@ -37,6 +37,9 @@ shuffle = (array) ->
 
   return array
 
+cors = ( link ) ->
+  "https://crossorigin.me/#{ link }"
+
 Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.news = {}
   $scope.article = {}
@@ -48,7 +51,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   loadArticle = ( id ) ->
     $http
       method: 'GET',
-      url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
+      url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
     .then ( response ) ->
       $scope.article = { raw: response.data }
       chunks = []
@@ -68,7 +71,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
 
   $http
     method: 'GET',
-    url: ( if LOCAL_MODE then "resources/news-list.json" else "http://www3.nhk.or.jp/news/easy/news-list.json" )
+    url: ( if LOCAL_MODE then "resources/news-list.json" else cors "http://www3.nhk.or.jp/news/easy/news-list.json" )
   .then ( response ) ->
     $scope.news = {}
     for date, news of $scope.kanjis = response.data[ 0 ]
@@ -88,7 +91,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
     # url: "resources/#{ word }.json"
     $http
       method: 'GET',
-      url: "https://crossorigin.me/http://jisho.org/api/v1/search/words?keyword=#{ word }.json"
+      url: cors( "http://jisho.org/api/v1/search/words?keyword=#{ word }.json" )
     .then ( response ) ->
       $scope.wordDefinition[ word ] = response.data.data.map( ( def, i, datum ) ->
         if datum.length > 1
