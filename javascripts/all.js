@@ -1,5 +1,5 @@
 (function() {
-  var LOCAL_MODE, firstKey, focus, same, shuffle;
+  var LOCAL_MODE, cors, firstKey, focus, same, shuffle;
 
   LOCAL_MODE = false;
 
@@ -37,6 +37,10 @@
     return array;
   };
 
+  cors = function(link) {
+    return "https://crossorigin.me/" + link;
+  };
+
   Shinen.controller('newsCtrl', function($scope, $http) {
     var loadArticle;
     $scope.news = {};
@@ -48,7 +52,7 @@
     loadArticle = function(id) {
       return $http({
         method: 'GET',
-        url: (LOCAL_MODE ? "resources/" + id + ".out.json" : "http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.json")
+        url: (LOCAL_MODE ? "resources/" + id + ".out.json" : cors("http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.json"))
       }).then(function(response) {
         var chunk, chunks;
         $scope.article = {
@@ -75,7 +79,7 @@
     };
     $http({
       method: 'GET',
-      url: (LOCAL_MODE ? "resources/news-list.json" : "http://www3.nhk.or.jp/news/easy/news-list.json")
+      url: (LOCAL_MODE ? "resources/news-list.json" : cors("http://www3.nhk.or.jp/news/easy/news-list.json"))
     }).then(function(response) {
       var date, firstNewsID, news, ref;
       $scope.news = {};
@@ -103,7 +107,7 @@
       }
       return $http({
         method: 'GET',
-        url: "https://crossorigin.me/http://jisho.org/api/v1/search/words?keyword=" + word + ".json"
+        url: cors("http://jisho.org/api/v1/search/words?keyword=" + word + ".json")
       }).then(function(response) {
         return $scope.wordDefinition[word] = response.data.data.map(function(def, i, datum) {
           var english_defs, prefix;
