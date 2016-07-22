@@ -1,5 +1,7 @@
 (function() {
-  var firstKey, focus, same, shuffle;
+  var LOCAL_MODE, firstKey, focus, same, shuffle;
+
+  LOCAL_MODE = false;
 
   window.Shinen = angular.module('Shinen', ['ngCookies', 'ngRoute', 'ngSanitize', 'ngAnimate', 'ui.bootstrap']);
 
@@ -46,7 +48,7 @@
     loadArticle = function(id) {
       return $http({
         method: 'GET',
-        url: "resources/" + id + ".out.json"
+        url: (LOCAL_MODE ? "resources/" + id + ".out.json" : "http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.json")
       }).then(function(response) {
         var chunk, chunks;
         $scope.article = {
@@ -73,7 +75,7 @@
     };
     $http({
       method: 'GET',
-      url: "resources/news-list.json"
+      url: (LOCAL_MODE ? "resources/news-list.json" : "http://www3.nhk.or.jp/news/easy/news-list.json")
     }).then(function(response) {
       var date, firstNewsID, news, ref;
       $scope.news = {};
