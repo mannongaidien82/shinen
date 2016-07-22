@@ -18,7 +18,7 @@
   div ng-class="{ 'col-md-8 hidden-sm-down': showSidebar, 'col-md-12': !showSidebar }"
     .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode, 'spacing': spacingMode }"
       .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
-        ng-switch on="unit.class || ''" ng-repeat="unit in chunk"
+        ng-switch on="unit.class" ng-repeat="unit in chunk"
           .word.location ng-switch-when='L'
             ruby
               | {{ unit.word }}
@@ -28,7 +28,7 @@
           .word ng-switch-when="B" {{ unit.word }}
           .word ng-switch-when="F" {{ unit.word }}
 
-          - %w( 0 2 3 4 ).each do |level|
+          - %w( 0 1 2 3 4 ).each do |level|
             .word.leveled-word {
               ng-switch-when=level
               uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
@@ -39,7 +39,13 @@
                 | {{ unit.word }}
                 rt
                  | {{ unit.ruby[ 0 ].r }}
-          .word.unknown-type[ng-switch-default ng-if='unit.word'] {{ unit.word }}
+          .word.unknown-type[ng-switch-default ng-if='unit.word']
+            ruby
+              | {{ unit.word }}
+              rt
+                | {{ unit.class }}
+      a.pull-right.source target='_blank' href="http://www3.nhk.or.jp/news/easy/{{ openArticleID }}/{{ openArticleID }}.html"
+        | Source
 
   .col-md-4
     #news-sidebar.list-group.collapse.in

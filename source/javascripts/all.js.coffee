@@ -1,3 +1,5 @@
+LOCAL_MODE = false
+
 window.Shinen = angular.module 'Shinen', [
   'ngCookies',
   'ngRoute',
@@ -46,7 +48,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   loadArticle = ( id ) ->
     $http
       method: 'GET',
-      url: "resources/#{ id }.out.json"
+      url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
     .then ( response ) ->
       $scope.article = { raw: response.data }
       chunks = []
@@ -66,7 +68,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
 
   $http
     method: 'GET',
-    url: "resources/news-list.json"
+    url: ( if LOCAL_MODE then "resources/news-list.json" else "http://www3.nhk.or.jp/news/easy/news-list.json" )
   .then ( response ) ->
     $scope.news = {}
     for date, news of $scope.kanjis = response.data[ 0 ]
