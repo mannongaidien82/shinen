@@ -54,10 +54,14 @@
 .news-article {
   .paragraph {
     display: block;
-    line-height: 3rem;
+
+    .definition {
+      border-bottom: 1px solid grey;
+    }
 
     .word {
       display: inline-block;
+      margin-bottom: 1rem;
     }
 
     .popover-content {

@@ -1,4 +1,4 @@
-LOCAL_MODE = false
+LOCAL_MODE = true
 
 window.Shinen = angular.module 'Shinen', [
   'ngCookies',
@@ -40,7 +40,9 @@ shuffle = (array) ->
 cors = ( link ) ->
   "https://crossorigin.me/#{ link }"
 
-Shinen.controller 'newsCtrl', ( $scope, $http ) ->
+Shinen.filter 'unsafe', ($sce) -> $sce.trustAsHtml
+
+Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   $scope.news = {}
   $scope.article = {}
   $scope.highlightMode = true
@@ -48,6 +50,8 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.spacingMode = false
   $scope.showSidebar = true
   $scope.clickMode = 'dictionary'
+
+  $scope.wordDefinition = {}
 
   loadArticle = ( id ) ->
     $http
@@ -77,7 +81,12 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
       method: 'GET',
       url: ( if LOCAL_MODE then "resources/#{ id }.out.dic" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.dic" )
     .then ( response ) ->
-      $scope.article.dic = response.data.reikai.entries
+      $scope.article.dic = {}
+
+      for id, val of response.data.reikai.entries
+        html = val.map( (v) -> v.def ).join( "<br>" )
+        # $scope.article.dic[ "BE-#{ id }" ] = $sce.trustAsHtml( html )
+        $scope.article.dic[ "BE-#{ id }" ] = html
 
   $http
     method: 'GET',
@@ -92,8 +101,6 @@ Shinen.controller 'newsCtrl', ( $scope, $http ) ->
   $scope.setArticle = ( id ) ->
     $scope.openArticleID = id
     loadArticle id
-
-  $scope.wordDefinition = {}
 
   $scope.findDef = ( word ) ->
     return if $scope.wordDefinition[ word ]
@@ -164,7 +171,6 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     stats[ $scope.touchedKanjis[ kanjiName ].onyomi  ] += 1
 
     if stats.failed + stats.success == 3
-      console.log stats
       switch stats.failed
 
         # All failed

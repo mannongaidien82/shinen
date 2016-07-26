@@ -16,9 +16,9 @@
 
           .separator.btn-group
             a.btn.btn-secondary ng-click="clickMode = 'dictionary'" ng-class="{ 'active': clickMode == 'dictionary' }"
-              i.fa.fa-language
+              i.fa.fa-book
             a.btn.btn-secondary ng-click="clickMode = 'translation'" ng-class="{ 'active': clickMode == 'translation' }"
-              i.fa.fa-exchange
+              i.fa.fa-language
 
       button.navbar-toggler.pull-right type="button" data-toggle="collapse" data-target="#news-sidebar" ng-click="showSidebar = !showSidebar" ☰
   div ng-class="{ 'col-md-8 hidden-sm-down': showSidebar, 'col-md-12': !showSidebar }"
@@ -37,6 +37,7 @@
           - %w( 0 1 2 3 4 ).each do |level|
             .word.leveled-word {
               ng-switch-when=level
+              ng-class="{ 'definition': ( unit.dicid && clickMode == 'dictionary' ) }"
               uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
               popover-is-open="popoverIsOpen"
               ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
