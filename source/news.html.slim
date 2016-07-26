@@ -26,10 +26,10 @@
       .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
         ng-switch on="unit.class" ng-repeat="unit in chunk"
           .word.location ng-switch-when='L'
-            ruby
-              | {{ unit.word }}
+            ruby ng-repeat="ruby in unit.ruby"
+              | {{ ruby.s }}
               rt
-               | {{ unit.ruby[ 0 ].r }}
+                | {{ ruby.r }}
           .word.company ng-switch-when='C' {{ unit.word }}
           .word ng-switch-when="B" {{ unit.word }}
           .word ng-switch-when="F" {{ unit.word }}
@@ -42,15 +42,15 @@
               popover-is-open="popoverIsOpen"
               ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
               }
-              ruby
-                | {{ unit.word }}
+              ruby ng-repeat="ruby in unit.ruby"
+                | {{ ruby.s }}
                 rt
-                 | {{ unit.ruby[ 0 ].r }}
+                  | {{ ruby.r }}
           .word.unknown-type[ng-switch-default ng-if='unit.word']
-            ruby
-              | {{ unit.word }}
+            ruby ng-repeat="ruby in unit.ruby"
+              | {{ ruby.s }}
               rt
-                | {{ unit.class }}
+                | {{ ruby.r }}
       a.pull-right.source target='_blank' href="http://www3.nhk.or.jp/news/easy/{{ openArticleID }}/{{ openArticleID }}.html"
         | Source
 
