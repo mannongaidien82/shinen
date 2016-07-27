@@ -32,10 +32,10 @@
 }
 
 .word-highlight {
-  .location { color: blue; }
-  .company  { color: lightskyblue; }
-  .leveled-word { color: black; }
-  .unknown-type {
+  .word-location { color: blue; }
+  .word-company  { color: lightskyblue; }
+  .word-leveled { color: black; }
+  .word-unknown {
     color: red;
     font-size: 20px;
   }

@@ -51,7 +51,9 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   $scope.showSidebar = true
   $scope.clickMode = 'dictionary'
 
-  $scope.wordDefinition = {}
+  wordTranslations = {}
+  $scope.getTranslation = ( word ) -> wordTranslations[ word ]
+  $scope.setTranslation = ( word, translation ) -> wordTranslations[ word ] = translation
 
   loadArticle = ( id ) ->
     $http
@@ -101,26 +103,6 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   $scope.setArticle = ( id ) ->
     $scope.openArticleID = id
     loadArticle id
-
-  $scope.findDef = ( word ) ->
-    return if $scope.wordDefinition[ word ]
-
-    # url: "resources/#{ word }.json"
-    $http
-      method: 'GET',
-      url: cors( "http://jisho.org/api/v1/search/words?keyword=#{ word }.json" )
-    .then ( response ) ->
-      $scope.wordDefinition[ word ] = response.data.data.map( ( def, i, datum ) ->
-        if datum.length > 1
-          prefix = "#{ i + 1 }) "
-        else
-          prefix = ''
-
-        english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
-        "#{ prefix }#{ english_defs.join( ', ' ) }"
-      ).slice( 0, 3 ).join( "\n" )
-    , ( response ) ->
-      $scope.wordDefinition[ word ] = 'Failed to find translation'
 
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false
@@ -250,8 +232,46 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     else
       false
 
-Shinen.directive 'shWord', ->
+Shinen.directive 'shWord', ( $http ) ->
+  restrict: 'E'
   templateUrl: 'word-template'
+  scope:
+    unit: '='
+    getTranslation: '&'
+    setTranslation: '&'
+  link: ( scope, element, attrs ) ->
+    word = scope.unit.word
+
+    scope.popUpContent = ->
+      scope.getTranslation()( word ) || 'Loading...'
+
+    scope.wordClass = switch scope.unit.class
+      when 'L' then 'word-location'
+      when 'C' then 'word-company'
+      when 'B' then 'word-base'
+      when 'F' then 'word-foreign'
+      when '0', '1', '2', '3', '4' then 'word-leveled'
+      else 'word-unknown'
+
+    scope.findDef = () ->
+      return if scope.getTranslation() word
+
+      $http( url: cors( "http://jisho.org/api/v1/search/words?keyword=#{ word }.json" ) )
+        .then ( response ) ->
+          translation = response.data.data.map( ( def, i, datum ) ->
+            if datum.length > 1
+              prefix = "#{ i + 1 }) "
+            else
+              prefix = ''
+
+            english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
+
+            "#{ prefix }#{ english_defs.join( ', ' ) }"
+          ).slice( 0, 3 ).join( "\n" )
+          console.log translation
+          scope.setTranslation() word, translation
+        , ( response ) ->
+          scope.setTranslation() word, 'Failed to find translation'
 
 Shinen.directive 'onEnter', ->
   return (scope, element, attrs) ->
