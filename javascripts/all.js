@@ -41,14 +41,33 @@
     return "https://crossorigin.me/" + link;
   };
 
-  Shinen.controller('newsCtrl', function($scope, $http) {
-    var loadArticle;
+  Shinen.filter('unsafe', function($sce) {
+    return $sce.trustAsHtml;
+  });
+
+  Shinen.controller('newsCtrl', function($scope, $http, $sce) {
+    var loadArticle, loadDictionary, wordTranslations;
     $scope.news = {};
     $scope.article = {};
     $scope.highlightMode = true;
     $scope.furiganaMode = true;
     $scope.spacingMode = false;
     $scope.showSidebar = true;
+    $scope.clickMode = 'dictionary';
+    $scope.article = {
+      raw: {},
+      dic: {}
+    };
+    wordTranslations = {};
+    $scope.getTranslation = function(word) {
+      return wordTranslations[word];
+    };
+    $scope.setTranslation = function(word, translation) {
+      return wordTranslations[word] = translation;
+    };
+    $scope.getDefinition = function(word) {
+      return $scope.article.dic[word];
+    };
     loadArticle = function(id) {
       return $http({
         method: 'GET',
@@ -56,10 +75,12 @@
       }).then(function(response) {
         var chunk, chunks;
         $scope.article = {
-          raw: response.data
+          raw: response.data,
+          dic: {}
         };
         chunks = [];
         chunk = [];
+        loadDictionary(id);
         response.data.morph.forEach(function(x) {
           switch (x.word) {
             case '<S>':
@@ -75,6 +96,25 @@
           }
         });
         return $scope.article['chunks'] = chunks;
+      });
+    };
+    loadDictionary = function(id) {
+      return $http({
+        method: 'GET',
+        url: (LOCAL_MODE ? "resources/" + id + ".out.dic" : cors("http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.dic"))
+      }).then(function(response) {
+        var html, ref, results, val;
+        $scope.article.dic = {};
+        ref = response.data.reikai.entries;
+        results = [];
+        for (id in ref) {
+          val = ref[id];
+          html = val.map(function(v) {
+            return v.def;
+          }).join("<br>");
+          results.push($scope.article.dic["BE-" + id] = html);
+        }
+        return results;
       });
     };
     $http({
@@ -96,34 +136,9 @@
       firstNewsID = firstKey($scope.news)[0].id;
       return $scope.setArticle(firstNewsID);
     });
-    $scope.setArticle = function(id) {
+    return $scope.setArticle = function(id) {
       $scope.openArticleID = id;
       return loadArticle(id);
-    };
-    $scope.wordDefinition = {};
-    return $scope.findDef = function(word) {
-      if ($scope.wordDefinition[word]) {
-        return;
-      }
-      return $http({
-        method: 'GET',
-        url: cors("http://jisho.org/api/v1/search/words?keyword=" + word + ".json")
-      }).then(function(response) {
-        return $scope.wordDefinition[word] = response.data.data.map(function(def, i, datum) {
-          var english_defs, prefix;
-          if (datum.length > 1) {
-            prefix = (i + 1) + ") ";
-          } else {
-            prefix = '';
-          }
-          english_defs = def.senses.map(function(sense) {
-            return sense.english_definitions.join(', ');
-          });
-          return "" + prefix + (english_defs.join(', '));
-        }).slice(0, 3).join("\n");
-      }, function(response) {
-        return $scope.wordDefinition[word] = 'Failed to find translation';
-      });
     };
   });
 
@@ -185,7 +200,6 @@
       stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
       stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
       if (stats.failed + stats.success === 3) {
-        console.log(stats);
         switch (stats.failed) {
           case 3:
             $scope.touchedKanjis[kanjiName].status = 'failed';
@@ -280,6 +294,76 @@
         return true;
       } else {
         return false;
+      }
+    };
+  });
+
+  Shinen.directive('shWord', function($http) {
+    return {
+      restrict: 'E',
+      templateUrl: 'word-template',
+      scope: {
+        popUpMode: '=',
+        unit: '=',
+        getDefinition: '&',
+        getTranslation: '&',
+        setTranslation: '&'
+      },
+      link: function(scope, element, attrs) {
+        var word;
+        word = scope.unit.word;
+        scope.popUpContent = function() {
+          if (scope.popUpMode === 'dictionary') {
+            return scope.getDefinition()(scope.unit.dicid) || 'Loading...';
+          } else {
+            return scope.getTranslation()(word) || 'Loading...';
+          }
+        };
+        scope.wordClass = (function() {
+          switch (scope.unit["class"]) {
+            case 'L':
+              return 'word-location';
+            case 'C':
+              return 'word-company';
+            case 'B':
+              return 'word-base';
+            case 'F':
+              return 'word-foreign';
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+              return 'word-leveled';
+            default:
+              return 'word-unknown';
+          }
+        })();
+        return scope.findDef = function() {
+          if (scope.getTranslation()(word)) {
+            return;
+          }
+          return $http({
+            url: cors("http://jisho.org/api/v1/search/words?keyword=" + word + ".json")
+          }).then(function(response) {
+            var translation;
+            translation = response.data.data.map(function(def, i, datum) {
+              var english_defs, prefix;
+              if (datum.length > 1) {
+                prefix = (i + 1) + ") ";
+              } else {
+                prefix = '';
+              }
+              english_defs = def.senses.map(function(sense) {
+                return sense.english_definitions.join(', ');
+              });
+              return "" + prefix + (english_defs.join(', '));
+            }).slice(0, 3).join("\n");
+            return scope.setTranslation()(word, translation);
+          }, function(response) {
+            return scope.setTranslation()(word, 'Failed to find translation');
+          });
+        };
       }
     };
   });
