@@ -1,4 +1,4 @@
-LOCAL_MODE = true
+LOCAL_MODE = false
 
 window.Shinen = angular.module 'Shinen', [
   'ngCookies',
@@ -50,17 +50,21 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   $scope.spacingMode = false
   $scope.showSidebar = true
   $scope.clickMode = 'dictionary'
+  $scope.article = { raw: {}, dic: {} }
 
   wordTranslations = {}
   $scope.getTranslation = ( word ) -> wordTranslations[ word ]
   $scope.setTranslation = ( word, translation ) -> wordTranslations[ word ] = translation
+
+  $scope.getDefinition = ( word ) ->
+    $scope.article.dic[ word ]
 
   loadArticle = ( id ) ->
     $http
       method: 'GET',
       url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
     .then ( response ) ->
-      $scope.article = { raw: response.data }
+      $scope.article = { raw: response.data, dic: {} }
       chunks = []
       chunk = []
 
@@ -236,14 +240,19 @@ Shinen.directive 'shWord', ( $http ) ->
   restrict: 'E'
   templateUrl: 'word-template'
   scope:
+    popUpMode: '='
     unit: '='
+    getDefinition: '&'
     getTranslation: '&'
     setTranslation: '&'
   link: ( scope, element, attrs ) ->
     word = scope.unit.word
 
     scope.popUpContent = ->
-      scope.getTranslation()( word ) || 'Loading...'
+      if scope.popUpMode == 'dictionary'
+        scope.getDefinition()( scope.unit.dicid ) || 'Loading...'
+      else
+        scope.getTranslation()( word ) || 'Loading...'
 
     scope.wordClass = switch scope.unit.class
       when 'L' then 'word-location'
@@ -268,7 +277,6 @@ Shinen.directive 'shWord', ( $http ) ->
 
             "#{ prefix }#{ english_defs.join( ', ' ) }"
           ).slice( 0, 3 ).join( "\n" )
-          console.log translation
           scope.setTranslation() word, translation
         , ( response ) ->
           scope.setTranslation() word, 'Failed to find translation'

@@ -25,7 +25,9 @@
     .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode, 'spacing': spacingMode }"
       .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
         sh-word {
+          pop-up-mode="clickMode"
           unit="unit"
+          get-definition="getDefinition"
           get-translation="getTranslation"
           set-translation="setTranslation"
           ng-repeat="unit in chunk"
