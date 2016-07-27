@@ -24,33 +24,7 @@
   div ng-class="{ 'col-md-8 hidden-sm-down': showSidebar, 'col-md-12': !showSidebar }"
     .news-article ng-class="{ 'word-highlight': highlightMode, 'hidden-furigana': !furiganaMode, 'spacing': spacingMode }"
       .paragraph ng-repeat="chunk in article.chunks" ng-class="{ 'lead m-t-1 m-b-1': $first }"
-        ng-switch on="unit.class" ng-repeat="unit in chunk"
-          .word.location ng-switch-when='L'
-            ruby ng-repeat="ruby in unit.ruby"
-              | {{ ruby.s }}
-              rt
-                | {{ ruby.r }}
-          .word.company ng-switch-when='C' {{ unit.word }}
-          .word ng-switch-when="B" {{ unit.word }}
-          .word ng-switch-when="F" {{ unit.word }}
-
-          - %w( 0 1 2 3 4 ).each do |level|
-            .word.leveled-word {
-              ng-switch-when=level
-              ng-class="{ 'definition': ( unit.dicid && clickMode == 'dictionary' ) }"
-              uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
-              popover-is-open="popoverIsOpen"
-              ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
-              }
-              ruby ng-repeat="ruby in unit.ruby"
-                | {{ ruby.s }}
-                rt
-                  | {{ ruby.r }}
-          .word.unknown-type[ng-switch-default ng-if='unit.word']
-            ruby ng-repeat="ruby in unit.ruby"
-              | {{ ruby.s }}
-              rt
-                | {{ ruby.r }}
+        sh-word
       a.pull-right.source target='_blank' href="http://www3.nhk.or.jp/news/easy/{{ openArticleID }}/{{ openArticleID }}.html"
         | Source
 
@@ -72,3 +46,32 @@ script type="text/ng-template" id="daily-news-template.html"
       div uib-accordion-header=''
     div class="panel-collapse collapse" data-uib-collapse="!isOpen"
       div[data-ng-transclude]
+
+script#word-template type='text/ng-template'
+  ng-switch on="unit.class" ng-repeat="unit in chunk"
+    .word.location ng-switch-when='L'
+      ruby ng-repeat='ruby in unit.ruby'
+        | {{ ruby.s }}
+        rt
+          | {{ ruby.r }}
+    .word.company ng-switch-when='C' {{ unit.word }}
+    .word ng-switch-when="B" {{ unit.word }}
+    .word ng-switch-when="F" {{ unit.word }}
+
+    - %w( 0 1 2 3 4 ).each do |level|
+      .word.leveled-word {
+        ng-switch-when=level
+        ng-class="{ 'definition': ( unit.dicid && clickMode == 'dictionary' ) }"
+        uib-popover="{{ wordDefinition[ unit.word ] || 'Loading...' }}"
+        popover-is-open="popoverIsOpen"
+        ng-click="findDef( unit.word ); popoverIsOpen = !popoverIsOpen"
+        }
+        ruby ng-repeat="ruby in unit.ruby"
+          | {{ ruby.s }}
+          rt
+            | {{ ruby.r }}
+    .word.unknown-type[ng-switch-default ng-if='unit.word']
+      ruby ng-repeat="ruby in unit.ruby"
+        | {{ ruby.s }}
+        rt
+          | {{ ruby.r }}

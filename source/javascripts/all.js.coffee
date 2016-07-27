@@ -250,6 +250,9 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     else
       false
 
+Shinen.directive 'shWord', ->
+  templateUrl: 'word-template'
+
 Shinen.directive 'onEnter', ->
   return (scope, element, attrs) ->
     element.bind 'keydown keypress', (event) ->
