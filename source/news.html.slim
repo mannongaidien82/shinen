@@ -68,10 +68,11 @@ script#word-template type='text/ng-template'
     - %w( 0 1 2 3 4 ).each do |level|
       .word.word-leveled {
         ng-switch-when=level
-        ng-class="{ 'definition': ( unit.dicid && clickMode == 'dictionary' ) }"
-        uib-popover="{{ popUpContent() }}"
-        popover-is-open="popoverIsOpen"
-        ng-click="findDef(); popoverIsOpen = !popoverIsOpen"
+        ng-class="{ 'definition': ( unit.dicid && popUpMode == 'dictionary' ) }"
+        uib-popover-html="popUpContent()"
+        popover-placement="auto"
+        popover-append-to-body="true"
+        ng-click="findDef()"
         }
         ruby ng-repeat="ruby in unit.ruby"
           | {{ ruby.s }}

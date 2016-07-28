@@ -276,7 +276,7 @@ Shinen.directive 'shWord', ( $http ) ->
             english_defs = def.senses.map( ( sense ) -> sense.english_definitions.join( ', ' ) )
 
             "#{ prefix }#{ english_defs.join( ', ' ) }"
-          ).slice( 0, 3 ).join( "\n" )
+          ).slice( 0, 3 ).join( '<br>' )
           scope.setTranslation() word, translation
         , ( response ) ->
           scope.setTranslation() word, 'Failed to find translation'
