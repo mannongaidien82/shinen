@@ -358,7 +358,7 @@
                 return sense.english_definitions.join(', ');
               });
               return "" + prefix + (english_defs.join(', '));
-            }).slice(0, 3).join("\n");
+            }).slice(0, 3).join('<br>');
             return scope.setTranslation()(word, translation);
           }, function(response) {
             return scope.setTranslation()(word, 'Failed to find translation');
