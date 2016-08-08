@@ -143,7 +143,7 @@
   });
 
   Shinen.controller('levelsCtrl', function($scope, $http) {
-    var findKanji, resetLevel, setMeaningState, updateRowStatus;
+    var resetLevel, setMeaningState, updateRowStatus;
     $scope.rocketMode = false;
     resetLevel = function() {
       $scope.touchedKanjis = {};
@@ -161,7 +161,7 @@
       });
     };
     resetLevel();
-    findKanji = function(kanjiName) {
+    $scope.findKanji = function(kanjiName) {
       return $scope.kanjis.find(function(kanji) {
         return kanji.name === kanjiName;
       });
@@ -189,8 +189,9 @@
         return focus();
       });
     };
+    $scope.pickLevel("N4");
     updateRowStatus = function(kanji) {
-      var index, kanjiName, stats;
+      var index, kanjiName, maxPoints, stats;
       stats = {
         failed: 0,
         success: 0
@@ -199,9 +200,16 @@
       stats[$scope.touchedKanjis[kanjiName].meaning] += 1;
       stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
       stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
-      if (stats.failed + stats.success === 3) {
+      maxPoints = 1;
+      if (kanji.kunyomi.length) {
+        maxPoints += 1;
+      }
+      if (kanji.onyomi.length) {
+        maxPoints += 1;
+      }
+      if (stats.failed + stats.success === maxPoints) {
         switch (stats.failed) {
-          case 3:
+          case maxPoints:
             $scope.touchedKanjis[kanjiName].status = 'failed';
             $scope.doneKanjis.failed.push(kanjiName);
             break;
@@ -214,7 +222,9 @@
             $scope.doneKanjis.mixed.push(kanjiName);
         }
         index = $scope.levelKanjis.indexOf(kanjiName);
-        return $scope.levelKanjis.splice(index, 1);
+        return setTimeout(function() {
+          return $scope.levelKanjis.splice(index, 1);
+        }, 100);
       }
     };
     setMeaningState = function(kanji, type, status) {
@@ -237,7 +247,7 @@
     $scope.revealMeaning = function(kanjiName) {
       var kanji;
       if (!$scope.meaningUpdated(kanjiName)) {
-        kanji = findKanji(kanjiName);
+        kanji = $scope.findKanji(kanjiName);
         return setMeaningState(kanji, 'meaning', 'failed');
       }
     };
@@ -253,13 +263,11 @@
     };
     $scope.revealKunyomi = function(kanjiName, safeMode) {
       var anyMatches, kanji, val;
-      kanji = findKanji(kanjiName);
+      kanji = $scope.findKanji(kanjiName);
       val = wanakana.toKana(($scope.kunyomis[kanji.name] || '').toUpperCase());
-      anyMatches = kanji.kunyomi.some((function(_this) {
-        return function(reading) {
-          return val === reading;
-        };
-      })(this));
+      anyMatches = kanji.kunyomi.some(function(reading) {
+        return (val === reading) || (val === reading.replace(/-/g, '').split('.')[0]) || (val === reading.replace(/[.-]/g, ''));
+      });
       if (anyMatches) {
         return setMeaningState(kanji, 'kunyomi', 'success');
       } else if (!safeMode) {
@@ -268,13 +276,11 @@
     };
     $scope.revealOnyomi = function(kanjiName, safeMode) {
       var anyMatches, kanji, val;
-      kanji = findKanji(kanjiName);
+      kanji = $scope.findKanji(kanjiName);
       val = wanakana.toKana($scope.onyomis[kanji.name] || '');
-      anyMatches = kanji.onyomi.some((function(_this) {
-        return function(reading) {
-          return val === reading;
-        };
-      })(this));
+      anyMatches = kanji.onyomi.some(function(reading) {
+        return val === reading;
+      });
       if (anyMatches) {
         return setMeaningState(kanji, 'onyomi', 'success');
       } else if (!safeMode) {
@@ -283,12 +289,10 @@
     };
     return $scope.meaningUpdated = function(kanjiName) {
       var anyMatches, kanji;
-      kanji = findKanji(kanjiName);
-      anyMatches = kanji.meanings.some((function(_this) {
-        return function(meaning) {
-          return same($scope.meanings[kanji.name], meaning);
-        };
-      })(this));
+      kanji = $scope.findKanji(kanjiName);
+      anyMatches = kanji.meanings.some(function(meaning) {
+        return same($scope.meanings[kanji.name], meaning);
+      });
       if (anyMatches) {
         setMeaningState(kanji, 'meaning', 'success');
         return true;
@@ -386,16 +390,14 @@
       restrict: 'A',
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {
-        return scope.$watch(attrs.ngModel, (function(_this) {
-          return function(value) {
-            var raw;
-            raw = value || '';
-            ngModel.$setViewValue(wanakana.toKana(raw.toUpperCase(), {
-              IMEMode: true
-            }));
-            return ngModel.$render();
-          };
-        })(this));
+        return scope.$watch(attrs.ngModel, function(value) {
+          var raw;
+          raw = value || '';
+          ngModel.$setViewValue(wanakana.toKana(raw.toUpperCase(), {
+            IMEMode: true
+          }));
+          return ngModel.$render();
+        });
       }
     };
   });
@@ -405,16 +407,14 @@
       restrict: 'A',
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {
-        return scope.$watch(attrs.ngModel, (function(_this) {
-          return function(value) {
-            var raw;
-            raw = value || '';
-            ngModel.$setViewValue(wanakana.toKana(raw, {
-              IMEMode: true
-            }));
-            return ngModel.$render();
-          };
-        })(this));
+        return scope.$watch(attrs.ngModel, function(value) {
+          var raw;
+          raw = value || '';
+          ngModel.$setViewValue(wanakana.toKana(raw, {
+            IMEMode: true
+          }));
+          return ngModel.$render();
+        });
       }
     };
   });
