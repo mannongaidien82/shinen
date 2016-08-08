@@ -213,8 +213,10 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     kanji = $scope.findKanji kanjiName
     val = wanakana.toKana( ( $scope.kunyomis[ kanji.name ] || '' ).toUpperCase() )
 
-    anyMatches = kanji.kunyomi.some ( reading ) =>
-      val == reading
+    anyMatches = kanji.kunyomi.some ( reading ) ->
+      ( val == reading ) ||
+        ( val == reading.replace( /-/g, '' ).split( '.' )[ 0 ] ) ||
+        ( val == reading.replace( /[.-]/g, '' ) )
 
     if anyMatches
       setMeaningState kanji, 'kunyomi', 'success'
@@ -225,7 +227,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     kanji = $scope.findKanji kanjiName
     val = wanakana.toKana( $scope.onyomis[ kanji.name ] || '' )
 
-    anyMatches = kanji.onyomi.some ( reading ) =>
+    anyMatches = kanji.onyomi.some ( reading ) ->
       val == reading
 
     if anyMatches
@@ -235,7 +237,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
   $scope.meaningUpdated = ( kanjiName ) ->
     kanji = $scope.findKanji kanjiName
-    anyMatches = kanji.meanings.some ( meaning ) =>
+    anyMatches = kanji.meanings.some ( meaning ) ->
       same $scope.meanings[ kanji.name ], meaning
 
     if anyMatches
@@ -301,7 +303,7 @@ Shinen.directive 'toKatakana', ->
   restrict: 'A'
   require: 'ngModel'
   link: ( scope, element, attrs, ngModel ) ->
-    scope.$watch attrs.ngModel, ( value ) =>
+    scope.$watch attrs.ngModel, ( value ) ->
       raw = value || ''
       ngModel.$setViewValue wanakana.toKana( raw.toUpperCase(), IMEMode: true )
       ngModel.$render()
@@ -310,7 +312,7 @@ Shinen.directive 'toHiragana', ->
   restrict: 'A'
   require: 'ngModel'
   link: ( scope, element, attrs, ngModel ) ->
-    scope.$watch attrs.ngModel, ( value ) =>
+    scope.$watch attrs.ngModel, ( value ) ->
       raw = value || ''
       ngModel.$setViewValue wanakana.toKana( raw, IMEMode: true )
       ngModel.$render()
