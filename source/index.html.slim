@@ -77,7 +77,7 @@
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].kunyomi ]"
+          .input-group ng-if="findKanji( kanji ).kunyomi.length" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].kunyomi ]"
             input.form-control {
               type="text"
               required="true"
