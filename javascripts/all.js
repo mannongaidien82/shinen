@@ -145,6 +145,9 @@
   Shinen.controller('levelsCtrl', function($scope, $http) {
     var resetLevel, setMeaningState, updateRowStatus;
     $scope.rocketMode = false;
+    $scope.checkMeaning = true;
+    $scope.checkOnyomi = true;
+    $scope.checkKunyomi = true;
     resetLevel = function() {
       $scope.touchedKanjis = {};
       $scope.meanings = {};
@@ -200,11 +203,14 @@
       stats[$scope.touchedKanjis[kanjiName].meaning] += 1;
       stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
       stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
-      maxPoints = 1;
-      if (kanji.kunyomi.length) {
+      maxPoints = 0;
+      if ($scope.checkMeaning) {
         maxPoints += 1;
       }
-      if (kanji.onyomi.length) {
+      if ($scope.checkKunyomi && kanji.kunyomi.length) {
+        maxPoints += 1;
+      }
+      if ($scope.checkOnyomi && kanji.onyomi.length) {
         maxPoints += 1;
       }
       if (stats.failed + stats.success === maxPoints) {
