@@ -1,304 +1,105 @@
 [
   {
     "name":"不",
-    "meanings":[
-      "negative",
-      "non",
-      "not",
-      "bad",
-      "ugly",
-      "clumsy"
-    ],
-    "onyomi":[
-      "フ",
-      "ブ"
-    ],
-    "kunyomi":[
-
-    ]
+    "meanings":[ "negative", "non", "not", "bad", "ugly", "clumsy" ],
+    "onyomi":[ "フ", "ブ" ],
+    "kunyomi":[ ]
   },
   {
     "name":"世",
-    "meanings":[
-      "generation",
-      "world",
-      "society",
-      "public"
-    ],
-    "onyomi":[
-      "セイ",
-      "セ",
-      "ソウ"
-    ],
-    "kunyomi":[
-      "よ",
-      "さんじゅう"
-    ]
+    "meanings":[ "generation", "world", "society", "public" ],
+    "onyomi":[ "セイ", "セ", "ソウ" ],
+    "kunyomi":[ "よ", "さんじゅう" ]
   },
   {
     "name":"主",
-    "meanings":[
-      "lord",
-      "chief",
-      "master",
-      "main thing",
-      "principal"
-    ],
-    "onyomi":[
-      "シュ",
-      "ス",
-      "シュウ"
-    ],
-    "kunyomi":[
-      "ぬし",
-      "おも",
-      "あるじ"
-    ]
+    "meanings":[ "lord", "chief", "master", "main thing", "principal" ],
+    "onyomi":[ "シュ", "ス", "シュウ" ],
+    "kunyomi":[ "ぬし", "おも", "あるじ" ]
   },
   {
     "name":"乗",
-    "meanings":[
-      "ride",
-      "power",
-      "multiplication",
-      "record",
-      "counter for vehicles",
-      "board",
-      "mount",
-      "join"
-    ],
-    "onyomi":[
-      "ジョウ",
-      "ショウ"
-    ],
-    "kunyomi":[
-      "の.る",
-      "-の.り",
-      "の.せる"
-    ]
+    "meanings":[ "ride", "power", "multiplication", "record", "counter for vehicles", "board", "mount", "join" ],
+    "onyomi":[ "ジョウ", "ショウ" ],
+    "kunyomi":[ "の.る", "-の.り", "の.せる" ]
   },
   {
     "name":"事",
-    "meanings":[
-      "matter",
-      "thing",
-      "fact",
-      "business",
-      "reason",
-      "possibly"
-    ],
-    "onyomi":[
-      "ジ",
-      "ズ"
-    ],
-    "kunyomi":[
-      "こと",
-      "つか.う",
-      "つか.える"
-    ]
+    "meanings":[ "matter", "thing", "fact", "business", "reason", "possibly" ],
+    "onyomi":[ "ジ", "ズ" ],
+    "kunyomi":[ "こと", "つか.う", "つか.える" ]
   },
   {
     "name":"京",
-    "meanings":[
-      "capital",
-      "10**16"
-    ],
-    "onyomi":[
-      "キョウ",
-      "ケイ",
-      "キン"
-    ],
-    "kunyomi":[
-      "みやこ"
-    ]
+    "meanings":[ "capital", "10**16" ],
+    "onyomi":[ "キョウ", "ケイ", "キン" ],
+    "kunyomi":[ "みやこ" ]
   },
   {
     "name":"仕",
-    "meanings":[
-      "attend",
-      "doing",
-      "official",
-      "serve"
-    ],
-    "onyomi":[
-      "シ",
-      "ジ"
-    ],
-    "kunyomi":[
-      "つか.える"
-    ]
+    "meanings":[ "attend", "doing", "official", "serve" ],
+    "onyomi":[ "シ", "ジ" ],
+    "kunyomi":[ "つか.える" ]
   },
   {
     "name":"代",
-    "meanings":[
-      "substitute",
-      "change",
-      "convert",
-      "replace",
-      "period",
-      "age",
-      "generation",
-      "charge",
-      "rate",
-      "fee"
-    ],
-    "onyomi":[
-      "ダイ",
-      "タイ"
-    ],
-    "kunyomi":[
-      "か.わる",
-      "かわ.る",
-      "かわ.り",
-      "-がわ.り",
-      "か.える",
-      "よ",
-      "しろ"
-    ]
+    "meanings":[ "substitute", "change", "convert", "replace", "period", "age", "generation", "charge", "rate", "fee" ],
+    "onyomi":[ "ダイ", "タイ" ],
+    "kunyomi":[ "か.わる", "かわ.る", "かわ.り", "-がわ.り", "か.える", "よ", "しろ" ]
   },
   {
     "name":"以",
-    "meanings":[
-      "by means of",
-      "because",
-      "in view of",
-      "compared with"
-    ],
-    "onyomi":[
-      "イ"
-    ],
-    "kunyomi":[
-      "もっ.て"
-    ]
+    "meanings":[ "by means of", "because", "in view of", "compared with" ],
+    "onyomi":[ "イ" ],
+    "kunyomi":[ "もっ.て" ]
   },
   {
     "name":"低",
-    "meanings":[
-      "lower",
-      "short",
-      "humble"
-    ],
-    "onyomi":[
-      "テイ"
-    ],
-    "kunyomi":[
-      "ひく.い",
-      "ひく.める",
-      "ひく.まる"
-    ]
+    "meanings":[ "lower", "short", "humble" ],
+    "onyomi":[ "テイ" ],
+    "kunyomi":[ "ひく.い", "ひく.める", "ひく.まる" ]
   },
   {
     "name":"住",
-    "meanings":[
-      "dwell",
-      "reside",
-      "live",
-      "inhabit"
-    ],
-    "onyomi":[
-      "ジュウ",
-      "ヂュウ",
-      "チュウ"
-    ],
-    "kunyomi":[
-      "す.む",
-      "す.まう",
-      "-ず.まい"
-    ]
+    "meanings":[ "dwell", "reside", "live", "inhabit" ],
+    "onyomi":[ "ジュウ", "ヂュウ", "チュウ" ],
+    "kunyomi":[ "す.む", "す.まう", "-ず.まい" ]
   },
   {
     "name":"体",
-    "meanings":[
-      "body",
-      "substance",
-      "object",
-      "reality",
-      "counter for images"
-    ],
-    "onyomi":[
-      "タイ",
-      "テイ"
-    ],
-    "kunyomi":[
-      "からだ",
-      "かたち"
-    ]
+    "meanings":[ "body", "substance", "object", "reality", "counter for images" ],
+    "onyomi":[ "タイ", "テイ" ],
+    "kunyomi":[ "からだ", "かたち" ]
   },
   {
     "name":"作",
-    "meanings":[
-      "make",
-      "production",
-      "prepare",
-      "build"
-    ],
-    "onyomi":[
-      "サク",
-      "サ"
-    ],
-    "kunyomi":[
-      "つく.る",
-      "つく.り",
-      "-づく.り"
-    ]
+    "meanings":[ "make", "production", "prepare", "build" ],
+    "onyomi":[ "サク", "サ" ],
+    "kunyomi":[ "つく.る", "つく.り", "-づく.り" ]
   },
   {
     "name":"使",
-    "meanings":[
-      "use"
-    ],
-    "onyomi":[
-      "シ"
-    ],
-    "kunyomi":[
-      "つか.う",
-      "つか.い",
-      "-つか.い",
-      "-づか.い"
-    ]
+    "meanings":[ "use" ],
+    "onyomi":[ "シ" ],
+    "kunyomi":[ "つか.う", "つか.い", "-つか.い", "-づか.い" ]
   },
   {
     "name":"便",
-    "meanings":[
-      "convenience"
-    ],
-    "onyomi":[
-      "ベン",
-      "ビン"
-    ],
-    "kunyomi":[
-      "たよ.り"
-    ]
+    "meanings":[ "convenience" ],
+    "onyomi":[ "ベン", "ビン" ],
+    "kunyomi":[ "たよ.り" ]
   },
   {
     "name":"借",
-    "meanings":[
-      "borrow",
-      "rent"
-    ],
-    "onyomi":[
-      "シャク"
-    ],
-    "kunyomi":[
-      "か.りる"
-    ]
+    "meanings":[ "borrow", "rent" ],
+    "onyomi":[ "シャク" ],
+    "kunyomi":[ "か.りる" ]
   },
   {
     "name":"働",
-    "meanings":[
-      "work",
-      "(kokuji)"
-    ],
-    "onyomi":[
-      "ドウ",
-      "リュク",
-      "リキ",
-      "ロク",
-      "リョク"
-    ],
-    "kunyomi":[
-      "はたら.く"
-    ]
+    "meanings":[ "work", "(kokuji)" ],
+    "onyomi":[ "ドウ", "リュク", "リキ", "ロク", "リョク" ],
+    "kunyomi":[ "はたら.く" ]
   },
   {
     "name":"元",
@@ -313,20 +114,6 @@
     ],
     "kunyomi":[
       "もと"
-    ]
-  },
-  {
-    "name":"兄",
-    "meanings":[
-      "elder brother",
-      "big brother"
-    ],
-    "onyomi":[
-      "ケイ",
-      "キョウ"
-    ],
-    "kunyomi":[
-      "あに"
     ]
   },
   {
@@ -359,18 +146,6 @@
       "うつ.る",
       "うつ-",
       "うつ.し"
-    ]
-  },
-  {
-    "name":"冬",
-    "meanings":[
-      "winter"
-    ],
-    "onyomi":[
-      "トウ"
-    ],
-    "kunyomi":[
-      "ふゆ"
     ]
   },
   {
@@ -744,20 +519,6 @@
     ]
   },
   {
-    "name":"夏",
-    "meanings":[
-      "summer"
-    ],
-    "onyomi":[
-      "カ",
-      "ガ",
-      "ゲ"
-    ],
-    "kunyomi":[
-      "なつ"
-    ]
-  },
-  {
     "name":"夕",
     "meanings":[
       "evening"
@@ -814,31 +575,6 @@
       "す.く",
       "よ.い",
       "い.い"
-    ]
-  },
-  {
-    "name":"妹",
-    "meanings":[
-      "younger sister"
-    ],
-    "onyomi":[
-      "マイ"
-    ],
-    "kunyomi":[
-      "いもうと"
-    ]
-  },
-  {
-    "name":"姉",
-    "meanings":[
-      "elder sister"
-    ],
-    "onyomi":[
-      "シ"
-    ],
-    "kunyomi":[
-      "あね",
-      "はは"
     ]
   },
   {
@@ -903,18 +639,6 @@
       "いえ",
       "や",
       "うち"
-    ]
-  },
-  {
-    "name":"寒",
-    "meanings":[
-      "cold"
-    ],
-    "onyomi":[
-      "カン"
-    ],
-    "kunyomi":[
-      "さむ.い"
     ]
   },
   {
@@ -1052,21 +776,6 @@
       "ひ.き-",
       "-び.き",
       "ひ.ける"
-    ]
-  },
-  {
-    "name":"弟",
-    "meanings":[
-      "younger brother",
-      "faithful service to elders"
-    ],
-    "onyomi":[
-      "テイ",
-      "ダイ",
-      "デ"
-    ],
-    "kunyomi":[
-      "おとうと"
     ]
   },
   {
@@ -1387,19 +1096,6 @@
     ]
   },
   {
-    "name":"春",
-    "meanings":[
-      "springtime",
-      "spring (season)"
-    ],
-    "onyomi":[
-      "シュン"
-    ],
-    "kunyomi":[
-      "はる"
-    ]
-  },
-  {
     "name":"昼",
     "meanings":[
       "daytime",
@@ -1410,20 +1106,6 @@
     ],
     "kunyomi":[
       "ひる"
-    ]
-  },
-  {
-    "name":"暑",
-    "meanings":[
-      "sultry",
-      "hot",
-      "summer heat"
-    ],
-    "onyomi":[
-      "ショ"
-    ],
-    "kunyomi":[
-      "あつ.い"
     ]
   },
   {
@@ -2080,19 +1762,6 @@
     "kunyomi":[
       "わたくし",
       "わたし"
-    ]
-  },
-  {
-    "name":"秋",
-    "meanings":[
-      "autumn"
-    ],
-    "onyomi":[
-      "シュウ"
-    ],
-    "kunyomi":[
-      "あき",
-      "とき"
     ]
   },
   {

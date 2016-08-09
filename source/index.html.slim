@@ -112,7 +112,7 @@
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-if="checkOnyomi" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].onyomi ]"
+          .input-group ng-if="checkOnyomi && findKanji( kanji ).onyomi.length" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].onyomi ]"
             input.form-control {
               type="text"
               required="true"
