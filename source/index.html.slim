@@ -20,12 +20,23 @@
                 ng-class="{ active: level == pickedLevel }"
                 }
                 | {{ level }}
+
         li.nav-item
           .btn-group role="group" aria-label="Controls"
             button.btn.btn-secondary ng-click="shuffle()"
               i.fa.fa-random
             button.btn.btn-secondary ng-click="rocketMode = !rocketMode" ng-class="rocketMode && 'active'"
               i.fa.fa-rocket
+
+        li.nav-item
+          .btn-group role="group" aria-label="Controls"
+            button.btn.btn-secondary ng-click="checkMeaning = !checkMeaning" ng-class="checkMeaning && 'active'"
+              | 意
+            button.btn.btn-secondary ng-click="checkOnyomi = !checkOnyomi" ng-class="checkOnyomi && 'active'"
+              | 音
+            button.btn.btn-secondary ng-click="checkKunyomi = !checkKunyomi" ng-class="checkKunyomi && 'active'"
+              | 訓
+
   ul.list-group.list-group-flush
     li.list-group-item.list-group-item-success ng-show="doneKanjis.success.length"
       .row
@@ -55,7 +66,7 @@
 
               | {{ kanji }}
         .col-md-5
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].meaning ]"
+          .input-group ng-if="checkMeaning" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].meaning ]"
             input.form-control {
               type="text"
               required=true
@@ -77,7 +88,7 @@
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-if="findKanji( kanji ).kunyomi.length" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].kunyomi ]"
+          .input-group ng-if="checkKunyomi && findKanji( kanji ).kunyomi.length" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].kunyomi ]"
             input.form-control {
               type="text"
               required="true"
@@ -101,7 +112,7 @@
                 }
                 i.fa.fa-eye
         .col-md-3
-          .input-group ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].onyomi ]"
+          .input-group ng-if="checkOnyomi" ng-class="{ failed: 'has-danger', success: 'has-success' }[ touchedKanjis[ kanji ].onyomi ]"
             input.form-control {
               type="text"
               required="true"

@@ -110,6 +110,9 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
 
 Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.rocketMode = false
+  $scope.checkMeaning = true
+  $scope.checkOnyomi = true
+  $scope.checkKunyomi = true
 
   resetLevel = ->
     $scope.touchedKanjis = {}
@@ -158,9 +161,10 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     stats[ $scope.touchedKanjis[ kanjiName ].kunyomi ] += 1
     stats[ $scope.touchedKanjis[ kanjiName ].onyomi  ] += 1
 
-    maxPoints = 1
-    maxPoints += 1 if kanji.kunyomi.length
-    maxPoints += 1 if kanji.onyomi.length
+    maxPoints = 0
+    maxPoints += 1 if $scope.checkMeaning
+    maxPoints += 1 if $scope.checkKunyomi && kanji.kunyomi.length
+    maxPoints += 1 if $scope.checkOnyomi && kanji.onyomi.length
 
     if stats.failed + stats.success == maxPoints
       switch stats.failed
