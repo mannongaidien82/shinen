@@ -1,0 +1,122 @@
+[
+  {
+    "name":"世",
+    "meanings":[ "generation", "world", "society", "public" ],
+    "onyomi":[ "セイ", "セ", "ソウ" ],
+    "kunyomi":[ "よ", "さんじゅう" ]
+  },
+  {
+    "name":"乗",
+    "meanings":[ "ride", "power", "multiplication", "record", "counter for vehicles", "board", "mount", "join" ],
+    "onyomi":[ "ジョウ", "ショウ" ],
+    "kunyomi":[ "の.る", "-の.り", "の.せる" ]
+  },
+  {
+    "name":"別",
+    "meanings":[ "separate", "branch off", "diverge", "fork", "another", "extra", "specially" ],
+    "onyomi":[ "ベツ" ],
+    "kunyomi":[ "わか.れる", "わ.ける" ]
+  },
+  {
+    "name":"味",
+    "meanings":[ "flavor", "taste" ],
+    "onyomi":[ "ミ" ],
+    "kunyomi":[ "あじ", "あじ.わう" ]
+  },
+  {
+    "name":"品",
+    "meanings":[ "goods", "refinement", "dignity", "article", "counter for meal courses" ],
+    "onyomi":[ "ヒン", "ホン" ],
+    "kunyomi":[ "しな" ]
+  },
+  {
+    "name":"員",
+    "meanings":[ "employee", "member", "number", "the one in charge" ],
+    "onyomi":[ "イン" ],
+    "kunyomi":[ ]
+  },
+  {
+    "name":"思",
+    "meanings":[ "think" ],
+    "onyomi":[ "シ" ],
+    "kunyomi":[ "おも.う", "おもえら.く", "おぼ.す" ]
+  },
+  {
+    "name":"早",
+    "meanings":[ "early", "fast" ],
+    "onyomi":[ "ソウ", "サッ" ],
+    "kunyomi":[ "はや.い", "はや", "はや-", "はや.まる", "はや.める", "さ-" ]
+  },
+  {
+    "name":"映",
+    "meanings":[ "reflect", "reflection", "projection" ],
+    "onyomi":[ "エイ" ],
+    "kunyomi":[ "うつ.る", "うつ.す", "は.える", "-ば.え" ]
+  },
+  {
+    "name":"民",
+    "meanings":[ "people", "nation", "subjects" ],
+    "onyomi":[ "ミン" ],
+    "kunyomi":[ "たみ" ]
+  },
+  {
+    "name":"用",
+    "meanings":[ "utilize", "business", "service", "use", "employ" ],
+    "onyomi":[ "ヨウ" ],
+    "kunyomi":[ "もち.いる" ]
+  },
+  {
+    "name":"町",
+    "meanings":[ "village", "town", "block", "street" ],
+    "onyomi":[ "チョウ" ],
+    "kunyomi":[ "まち" ]
+  },
+  {
+    "name":"界",
+    "meanings":[ "world" ],
+    "onyomi":[ "カイ" ],
+    "kunyomi":[ ]
+  },
+  {
+    "name":"知",
+    "meanings":[ "know", "wisdom" ],
+    "onyomi":[ "チ" ],
+    "kunyomi":[ "し.る", "し.らせる" ]
+  },
+  {
+    "name":"私",
+    "meanings":[ "private", "I", "me" ],
+    "onyomi":[ "シ" ],
+    "kunyomi":[ "わたくし", "わたし" ]
+  },
+  {
+    "name":"銀",
+    "meanings":[ "silver" ],
+    "onyomi":[ "ギン" ],
+    "kunyomi":[ "しろがね" ]
+  },
+  {
+    "name":"黒",
+    "meanings":[ "black" ],
+    "onyomi":[ "コク" ],
+    "kunyomi":[ "くろ", "くろ.ずむ", "くろ.い" ]
+  },
+  {
+    "name":"集",
+    "meanings":[ "gather", "meet", "congregate", "swarm", "flock" ],
+    "onyomi":[ "シュウ" ],
+    "kunyomi":[ "あつ.まる", "あつ.める", "つど.う" ]
+  },
+  {
+    "name":"鳥",
+    "meanings":[ "bird", "chicken" ],
+    "onyomi":[ "チョウ" ],
+    "kunyomi":[ "とり" ]
+  },
+  {
+    "name":"質",
+    "meanings":[ "substance", "quality", "matter", "temperament" ],
+    "onyomi":[ "シツ", "シチ", "チ" ],
+    "kunyomi":[ "たち", "ただ.す", "もと", "わりふ" ]
+  }
+]

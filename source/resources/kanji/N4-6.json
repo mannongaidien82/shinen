@@ -1,0 +1,122 @@
+[
+  {
+    "name":"英",
+    "meanings":[ "England", "English" ],
+    "onyomi":[ "エイ" ],
+    "kunyomi":[ "はなぶさ" ]
+  },
+  {
+    "name":"茶",
+    "meanings":[ "tea" ],
+    "onyomi":[ "チャ", "サ" ],
+    "kunyomi":[ ]
+  },
+  {
+    "name":"菜",
+    "meanings":[ "vegetable", "side dish", "greens" ],
+    "onyomi":[ "サイ" ],
+    "kunyomi":[ "な" ]
+  },
+  {
+    "name":"薬",
+    "meanings":[ "medicine", "chemical", "enamel", "gunpowder", "benefit" ],
+    "onyomi":[ "ヤク" ],
+    "kunyomi":[ "くすり" ]
+  },
+  {
+    "name":"院",
+    "meanings":[ "Inst.", "institution", "temple", "mansion", "school" ],
+    "onyomi":[ "イン" ],
+    "kunyomi":[ ]
+  },
+  {
+    "name":"飯",
+    "meanings":[ "meal", "boiled rice" ],
+    "onyomi":[ "ハン" ],
+    "kunyomi":[ "めし" ]
+  },
+  {
+    "name":"館",
+    "meanings":[ "building", "mansion", "large building", "palace" ],
+    "onyomi":[ "カン" ],
+    "kunyomi":[ "やかた", "たて" ]
+  },
+  {
+    "name":"験",
+    "meanings":[ "verification", "effect", "testing" ],
+    "onyomi":[ "ケン", "ゲン" ],
+    "kunyomi":[ "あかし", "しるし", "ため.す", "ためし" ]
+  },
+  {
+    "name":"転",
+    "meanings":[ "revolve", "turn around", "change" ],
+    "onyomi":[ "テン" ],
+    "kunyomi":[ "ころ.がる", "ころ.げる", "ころ.がす", "ころ.ぶ", "まろ.ぶ", "うたた", "うつ.る" ]
+  },
+  {
+    "name":"軽",
+    "meanings":[ "lightly", "trifling", "unimportant" ],
+    "onyomi":[ "ケイ" ],
+    "kunyomi":[ "かる.い", "かろ.やか", "かろ.んじる" ]
+  },
+  {
+    "name":"都",
+    "meanings":[ "metropolis", "capital" ],
+    "onyomi":[ "ト", "ツ" ],
+    "kunyomi":[ "みやこ" ]
+  },
+  {
+    "name":"短",
+    "meanings":[ "short", "brevity", "fault", "defect", "weak point" ],
+    "onyomi":[ "タン" ],
+    "kunyomi":[ "みじか.い" ]
+  },
+  {
+    "name":"研",
+    "meanings":[ "polish", "study of", "sharpen" ],
+    "onyomi":[ "ケン" ],
+    "kunyomi":[ "と.ぐ" ]
+  },
+  {
+    "name":"所",
+    "meanings":[ "place" ],
+    "onyomi":[ "ショ" ],
+    "kunyomi":[ "とこ.ろ", "どころ" ]
+  },
+  {
+    "name":"持",
+    "meanings":[ "hold", "have" ],
+    "onyomi":[ "ジ" ],
+    "kunyomi":[ "も.つ", "-も.ち", "も.てる" ]
+  },
+  {
+    "name":"帰",
+    "meanings":[ "homecoming", "arrive at", "lead to", "result in" ],
+    "onyomi":[ "キ" ],
+    "kunyomi":[ "かえ.る", "かえ.す", "おく.る", "とつ.ぐ" ]
+  },
+  {
+    "name":"待",
+    "meanings":[ "wait", "depend on" ],
+    "onyomi":[ "タイ" ],
+    "kunyomi":[ "ま.つ", "-ま.ち" ]
+  },
+  {
+    "name":"堂",
+    "meanings":[ "public chamber", "hall" ],
+    "onyomi":[ "ドウ" ],
+    "kunyomi":[ ]
+  },
+  {
+    "name":"場",
+    "meanings":[ "location", "place" ],
+    "onyomi":[ "ジョウ", "チョウ" ],
+    "kunyomi":[ "ば" ]
+  },
+  {
+    "name":"地",
+    "meanings":[ "ground", "earth" ],
+    "onyomi":[ "チ", "ジ" ],
+    "kunyomi":[ ]
+  }
+]
