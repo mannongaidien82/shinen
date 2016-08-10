@@ -148,6 +148,7 @@
     $scope.checkMeaning = true;
     $scope.checkOnyomi = true;
     $scope.checkKunyomi = true;
+    $scope.kanjiSize = 0;
     resetLevel = function() {
       $scope.touchedKanjis = {};
       $scope.meanings = {};
@@ -192,17 +193,10 @@
         return focus();
       });
     };
-    $scope.pickLevel("N4");
-    updateRowStatus = function(kanji) {
-      var index, kanjiName, maxPoints, stats;
-      stats = {
-        failed: 0,
-        success: 0
-      };
-      kanjiName = kanji.name;
-      stats[$scope.touchedKanjis[kanjiName].meaning] += 1;
-      stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
-      stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
+    $scope.pickLevel("test");
+    $scope.kanjiMaxPoints = function(kanjiName) {
+      var kanji, maxPoints;
+      kanji = $scope.findKanji(kanjiName);
       maxPoints = 0;
       if ($scope.checkMeaning) {
         maxPoints += 1;
@@ -213,6 +207,19 @@
       if ($scope.checkOnyomi && kanji.onyomi.length) {
         maxPoints += 1;
       }
+      return maxPoints;
+    };
+    updateRowStatus = function(kanji) {
+      var index, kanjiName, maxPoints, stats;
+      stats = {
+        failed: 0,
+        success: 0
+      };
+      kanjiName = kanji.name;
+      stats[$scope.touchedKanjis[kanjiName].meaning] += 1;
+      stats[$scope.touchedKanjis[kanjiName].kunyomi] += 1;
+      stats[$scope.touchedKanjis[kanjiName].onyomi] += 1;
+      maxPoints = $scope.kanjiMaxPoints(kanjiName);
       if (stats.failed + stats.success === maxPoints) {
         switch (stats.failed) {
           case maxPoints:
@@ -231,6 +238,23 @@
         return setTimeout(function() {
           return $scope.levelKanjis.splice(index, 1);
         }, 100);
+      }
+    };
+    $scope.resetDone = function(level) {
+      if ("all" === level) {
+        $scope.resetDone('success');
+        $scope.resetDone('mixed');
+        $scope.resetDone('failed');
+        return $scope.shuffle();
+      } else {
+        $scope.doneKanjis[level].forEach(function(kanjiName) {
+          $scope.touchedKanjis[kanjiName] = {};
+          $scope.meanings[kanjiName] = void 0;
+          $scope.kunyomis[kanjiName] = void 0;
+          return $scope.onyomis[kanjiName] = void 0;
+        });
+        $scope.levelKanjis = $scope.levelKanjis.concat($scope.doneKanjis[level]);
+        return $scope.doneKanjis[level] = [];
       }
     };
     setMeaningState = function(kanji, type, status) {
