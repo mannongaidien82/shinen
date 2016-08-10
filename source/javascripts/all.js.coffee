@@ -113,6 +113,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
   $scope.checkMeaning = true
   $scope.checkOnyomi = true
   $scope.checkKunyomi = true
+  $scope.kanjiSize = 0
 
   resetLevel = ->
     $scope.touchedKanjis = {}
