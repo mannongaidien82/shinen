@@ -193,7 +193,7 @@
         return focus();
       });
     };
-    $scope.pickLevel("test");
+    $scope.pickLevel("N5");
     $scope.kanjiMaxPoints = function(kanjiName) {
       var kanji, maxPoints;
       kanji = $scope.findKanji(kanjiName);
@@ -320,7 +320,7 @@
         return setMeaningState(kanji, 'onyomi', 'failed');
       }
     };
-    return $scope.meaningUpdated = function(kanjiName, auto) {
+    $scope.meaningUpdated = function(kanjiName, auto) {
       var anyMatches, kanji;
       if (auto == null) {
         auto = false;
@@ -344,6 +344,13 @@
       } else {
         return false;
       }
+    };
+    return $scope.kanjiPopover = function(kanjiName) {
+      var kanji, kunyomi, onyomi;
+      kanji = $scope.findKanji(kanjiName);
+      onyomi = kanji.onyomi.join(', ');
+      kunyomi = kanji.kunyomi.join(', ');
+      return "<b>" + (kanji.meanings.join(', ')) + "</b><br> <b>音:</b> " + onyomi + " <i>(" + (wanakana.toRomaji(onyomi)) + ")</i><br> <b>訓:</b> " + kunyomi + " <i>(" + (wanakana.toRomaji(kunyomi)) + ")</i>";
     };
   });
 
