@@ -260,6 +260,9 @@
     setMeaningState = function(kanji, type, status) {
       var base, name;
       (base = $scope.touchedKanjis)[name = kanji.name] || (base[name] = {});
+      if ($scope.touchedKanjis[kanji.name][type]) {
+        return;
+      }
       $scope.touchedKanjis[kanji.name][type] = status;
       switch (type) {
         case 'meaning':
