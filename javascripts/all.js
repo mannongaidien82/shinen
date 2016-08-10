@@ -317,12 +317,24 @@
         return setMeaningState(kanji, 'onyomi', 'failed');
       }
     };
-    return $scope.meaningUpdated = function(kanjiName) {
+    return $scope.meaningUpdated = function(kanjiName, auto) {
       var anyMatches, kanji;
+      if (auto == null) {
+        auto = false;
+      }
+      if (auto && !$scope.rocketMode) {
+        return;
+      }
       kanji = $scope.findKanji(kanjiName);
-      anyMatches = kanji.meanings.some(function(meaning) {
-        return same($scope.meanings[kanji.name], meaning);
-      });
+      if (auto) {
+        anyMatches = kanji.meanings.some(function(meaning) {
+          return $scope.meanings[kanji.name].toLowerCase() === meaning.toLowerCase();
+        });
+      } else {
+        anyMatches = kanji.meanings.some(function(meaning) {
+          return same($scope.meanings[kanji.name], meaning);
+        });
+      }
       if (anyMatches) {
         setMeaningState(kanji, 'meaning', 'success');
         return true;
