@@ -87,6 +87,7 @@
               autocapitalize="off"
               spellcheck="false"
               on-enter="revealMeaning( kanji )"
+              ng-change="meaningUpdated( kanji, true )"
               ng-model="meanings[ kanji ]"
               ng-disabled="touchedKanjis[ kanji ].meaning"
               ng-class="{ failed: 'form-control-danger', success: 'form-control-success' }[ touchedKanjis[ kanji ].meaning ]"

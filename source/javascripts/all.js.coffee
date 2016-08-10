@@ -263,10 +263,17 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     else if !safeMode
       setMeaningState kanji, 'onyomi', 'failed'
 
-  $scope.meaningUpdated = ( kanjiName ) ->
+  $scope.meaningUpdated = ( kanjiName, auto = false ) ->
+    return if auto && !$scope.rocketMode
+
     kanji = $scope.findKanji kanjiName
-    anyMatches = kanji.meanings.some ( meaning ) ->
-      same $scope.meanings[ kanji.name ], meaning
+
+    if auto
+      anyMatches = kanji.meanings.some ( meaning ) ->
+        $scope.meanings[ kanji.name ].toLowerCase() == meaning.toLowerCase()
+    else
+      anyMatches = kanji.meanings.some ( meaning ) ->
+        same $scope.meanings[ kanji.name ], meaning
 
     if anyMatches
       setMeaningState kanji, 'meaning', 'success'
