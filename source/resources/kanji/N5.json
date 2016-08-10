@@ -1,31 +1,15 @@
 [
   {
     "name":"一",
-    "meanings":[
-      "one"
-    ],
-    "onyomi":[
-      "イチ",
-      "イツ"
-    ],
-    "kunyomi":[
-      "ひと-",
-      "ひと.つ"
-    ]
+    "meanings":[ "one" ],
+    "onyomi":[ "イチ", "イツ" ],
+    "kunyomi":[ "ひと-", "ひと.つ" ]
   },
   {
     "name":"七",
-    "meanings":[
-      "seven"
-    ],
-    "onyomi":[
-      "シチ"
-    ],
-    "kunyomi":[
-      "なな",
-      "なな.つ",
-      "なの"
-    ]
+    "meanings":[ "seven" ],
+    "onyomi":[ "シチ" ],
+    "kunyomi":[ "なな", "なな.つ", "なの" ]
   },
   {
     "name":"万",

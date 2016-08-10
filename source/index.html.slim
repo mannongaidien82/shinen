@@ -23,8 +23,6 @@
 
         li.nav-item
           .btn-group role="group" aria-label="Controls"
-            button.btn.btn-secondary ng-click="shuffle()"
-              i.fa.fa-random
             button.btn.btn-secondary ng-click="rocketMode = !rocketMode" ng-class="rocketMode && 'active'"
               i.fa.fa-rocket
 
@@ -36,6 +34,17 @@
               | 音
             button.btn.btn-secondary ng-click="checkKunyomi = !checkKunyomi" ng-class="checkKunyomi && 'active'"
               | 訓
+
+        li.nav-item
+          .btn-group role="group" aria-label="Controls"
+            button.btn.btn-secondary ng-click="shuffle()"
+              i.fa.fa-random
+            button.btn.btn-secondary ng-click="resetDone('all')" ng-disabled="levelKanjis.length"
+              i.fa.fa-refresh
+            button.btn.btn-warning ng-click="resetDone('mixed')" ng-disabled="!doneKanjis.mixed.length"
+              i.fa.fa-refresh
+            button.btn.btn-danger ng-click="resetDone('failed')" ng-disabled="!doneKanjis.failed.length"
+              i.fa.fa-refresh
 
   ul.list-group.list-group-flush
     li.list-group-item.list-group-item-success ng-show="doneKanjis.success.length"

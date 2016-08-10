@@ -151,7 +151,17 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
       $scope.levelKanjis = $scope.kanjis.map( ( kanji ) -> kanji.name )
       focus()
 
-  $scope.pickLevel "N4"
+  $scope.pickLevel "test"
+
+  $scope.kanjiMaxPoints = ( kanjiName ) ->
+    kanji = $scope.findKanji kanjiName
+
+    maxPoints = 0
+    maxPoints += 1 if $scope.checkMeaning
+    maxPoints += 1 if $scope.checkKunyomi && kanji.kunyomi.length
+    maxPoints += 1 if $scope.checkOnyomi && kanji.onyomi.length
+
+    maxPoints
 
   updateRowStatus = ( kanji ) ->
     stats = { failed: 0, success: 0 }
@@ -161,10 +171,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
     stats[ $scope.touchedKanjis[ kanjiName ].kunyomi ] += 1
     stats[ $scope.touchedKanjis[ kanjiName ].onyomi  ] += 1
 
-    maxPoints = 0
-    maxPoints += 1 if $scope.checkMeaning
-    maxPoints += 1 if $scope.checkKunyomi && kanji.kunyomi.length
-    maxPoints += 1 if $scope.checkOnyomi && kanji.onyomi.length
+    maxPoints = $scope.kanjiMaxPoints( kanjiName )
 
     if stats.failed + stats.success == maxPoints
       switch stats.failed
@@ -188,6 +195,22 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
       setTimeout ->
         $scope.levelKanjis.splice index, 1
       , 100
+
+  $scope.resetDone = (level) ->
+    if "all" == level
+      $scope.resetDone( 'success' )
+      $scope.resetDone( 'mixed' )
+      $scope.resetDone( 'failed' )
+      $scope.shuffle()
+    else
+      $scope.doneKanjis[ level ].forEach (kanjiName) ->
+        $scope.touchedKanjis[ kanjiName ] = {}
+        $scope.meanings[ kanjiName ] = undefined
+        $scope.kunyomis[ kanjiName ] = undefined
+        $scope.onyomis[ kanjiName ] = undefined
+
+      $scope.levelKanjis = $scope.levelKanjis.concat( $scope.doneKanjis[ level ] )
+      $scope.doneKanjis[ level ] = []
 
   setMeaningState = ( kanji, type, status ) ->
     $scope.touchedKanjis[ kanji.name ] ||= {}
