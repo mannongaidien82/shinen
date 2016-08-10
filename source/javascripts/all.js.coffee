@@ -215,6 +215,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
 
   setMeaningState = ( kanji, type, status ) ->
     $scope.touchedKanjis[ kanji.name ] ||= {}
+    return if $scope.touchedKanjis[ kanji.name ][ type ]
     $scope.touchedKanjis[ kanji.name ][ type ] = status
     switch type
       when 'meaning' then $scope.meanings[ kanji.name ] = kanji.meanings.join( ', ' )
