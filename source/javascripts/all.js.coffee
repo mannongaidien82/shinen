@@ -152,7 +152,7 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
       $scope.levelKanjis = $scope.kanjis.map( ( kanji ) -> kanji.name )
       focus()
 
-  $scope.pickLevel "test"
+  $scope.pickLevel "N5"
 
   $scope.kanjiMaxPoints = ( kanjiName ) ->
     kanji = $scope.findKanji kanjiName
@@ -281,6 +281,13 @@ Shinen.controller 'levelsCtrl', ( $scope, $http ) ->
       true
     else
       false
+  $scope.kanjiPopover = ( kanjiName ) ->
+    kanji = $scope.findKanji kanjiName
+    onyomi = kanji.onyomi.join( ', ' )
+    kunyomi = kanji.kunyomi.join( ', ' )
+    "<b>#{ kanji.meanings.join( ', ' ) }</b><br>
+     <b>音:</b> #{ onyomi } <i>(#{ wanakana.toRomaji onyomi })</i><br>
+     <b>訓:</b> #{ kunyomi } <i>(#{ wanakana.toRomaji kunyomi })</i>"
 
 Shinen.directive 'shWord', ( $http ) ->
   restrict: 'E'
