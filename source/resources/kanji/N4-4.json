@@ -1,7 +1,7 @@
 [
   {
     "name":"頭",
-    "meanings":[ "head", "counter for large animals" ],
+    "meanings":[ "head" ],
     "onyomi":[ "トウ", "ズ", "ト" ],
     "kunyomi":[ "あたま", "かしら", "-がしら", "かぶり" ]
   },
@@ -19,43 +19,43 @@
   },
   {
     "name":"風",
-    "meanings":[ "wind", "air", "style", "manner" ],
+    "meanings":[ "wind", "style" ],
     "onyomi":[ "フウ", "フ" ],
     "kunyomi":[ "かぜ", "かざ-", "-かぜ" ]
   },
   {
     "name":"通",
-    "meanings":[ "traffic", "pass through", "avenue", "commute", "counter for letters" ],
+    "meanings":[ "traffic", "pass through" ],
     "onyomi":[ "ツウ", "ツ" ],
     "kunyomi":[ "とお.る", "とお.り", "-とお.り", "-どお.り", "とお.す", "とお.し", "-どお.し", "かよ.う" ]
   },
   {
     "name":"進",
-    "meanings":[ "advance", "proceed", "progress", "promote" ],
+    "meanings":[ "advance" ],
     "onyomi":[ "シン" ],
     "kunyomi":[ "すす.む", "すす.める" ]
   },
   {
     "name":"運",
-    "meanings":[ "carry", "luck", "destiny", "fate", "lot", "transport", "progress", "advance" ],
+    "meanings":[ "carry", "luck" ],
     "onyomi":[ "ウン" ],
     "kunyomi":[ "はこ.ぶ" ]
   },
   {
     "name":"遠",
-    "meanings":[ "distant", "far" ],
+    "meanings":[ "far", "distant" ],
     "onyomi":[ "エン", "オン" ],
     "kunyomi":[ "とお.い" ]
   },
   {
     "name":"近",
-    "meanings":[ "near", "early", "akin", "tantamount" ],
+    "meanings":[ "near" ],
     "onyomi":[ "キン", "コン" ],
     "kunyomi":[ "ちか.い" ]
   },
   {
     "name":"送",
-    "meanings":[ "escort", "send" ],
+    "meanings":[ "send", "escort" ],
     "onyomi":[ "ソウ" ],
     "kunyomi":[ "おく.る" ]
   },
@@ -67,22 +67,21 @@
   },
   {
     "name":"起",
-    "meanings":[ "rouse", "wake up", "get up" ],
+    "meanings":[ "wake up", "get up" ],
     "onyomi":[ "キ" ],
-    "kunyomi":[ "お.きる", "お.こる", "お.こす", "おこ.す", "た.つ" ]
+    "kunyomi":[ "お.こる" ]
   },
   {
     "name":"病",
     "meanings":[ "ill", "sick" ],
     "onyomi":[ "ビョウ", "ヘイ" ],
-    "kunyomi":[ "や.む", "-や.み", "やまい"
-    ]
+    "kunyomi":[ "や.む" ]
   },
   {
     "name":"産",
-    "meanings":[ "products", "bear", "give birth", "yield", "childbirth", "native", "property" ],
+    "meanings":[ "give birth", "birth" ],
     "onyomi":[ "サン" ],
-    "kunyomi":[ "う.む", "う.まれる", "うぶ-", "む.す" ]
+    "kunyomi":[ "う.む" ]
   },
   {
     "name":"旅",
@@ -98,7 +97,7 @@
   },
   {
     "name":"度",
-    "meanings":[ "degrees", "occurrence", "time", "counter for occurrences" ],
+    "meanings":[ "degrees", "occurrence", "time" ],
     "onyomi":[ "ド", "ト", "タク" ],
     "kunyomi":[ "たび", "-た.い" ]
   },
@@ -106,17 +105,17 @@
     "name":"建",
     "meanings":[ "build" ],
     "onyomi":[ "ケン", "コン" ],
-    "kunyomi":[ "た.てる", "た.て", "-だ.て", "た.つ" ]
+    "kunyomi":[ "た.てる" ]
   },
   {
     "name":"広",
-    "meanings":[ "wide", "broad", "spacious" ],
+    "meanings":[ "wide" ],
     "onyomi":[ "コウ" ],
-    "kunyomi":[ "ひろ.い", "ひろ.まる", "ひろ.める", "ひろ.がる", "ひろ.げる" ]
+    "kunyomi":[ "ひろ.い" ]
   },
   {
     "name":"屋",
-    "meanings":[ "roof", "house", "shop", "dealer", "seller" ],
+    "meanings":[ "roof", "house", "shop" ],
     "onyomi":[ "オク" ],
     "kunyomi":[ "や" ]
   }

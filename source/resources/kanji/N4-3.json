@@ -3,19 +3,19 @@
     "name":"弱",
     "meanings":[ "weak", "frail" ],
     "onyomi":[ "ジャク" ],
-    "kunyomi":[ "よわ.い", "よわ.る", "よわ.まる", "よわ.める" ]
+    "kunyomi":[ "よわ.い" ]
   },
   {
     "name":"強",
     "meanings":[ "strong" ],
     "onyomi":[ "キョウ", "ゴウ" ],
-    "kunyomi":[ "つよ.い", "つよ.まる", "つよ.める", "し.いる", "こわ.い" ]
+    "kunyomi":[ "つよ.い", "こわ.い" ]
   },
   {
     "name":"引",
-    "meanings":[ "pull", "tug", "jerk", "admit", "install", "quote", "refer to" ],
+    "meanings":[ "pull" ],
     "onyomi":[ "イン" ],
-    "kunyomi":[ "ひ.く", "ひ.き", "ひ.き-", "-び.き", "ひ.ける" ]
+    "kunyomi":[ "ひ.く" ]
   },
   {
     "name":"習",
@@ -37,25 +37,25 @@
   },
   {
     "name":"暗",
-    "meanings":[ "darkness", "disappear", "shade", "informal", "grow dark", "be blinded" ],
+    "meanings":[ "dark" ],
     "onyomi":[ "アン" ],
     "kunyomi":[ "くら.い" ]
   },
   {
     "name":"服",
-    "meanings":[ "clothing", "admit", "obey", "discharge" ],
+    "meanings":[ "cloth" ],
     "onyomi":[ "フク" ],
     "kunyomi":[ ]
   },
   {
     "name":"朝",
-    "meanings":[ "morning", "dynasty", "regime", "epoch", "period", "(North) Korea" ],
+    "meanings":[ "morning" ],
     "onyomi":[ "チョウ" ],
     "kunyomi":[ "あさ" ]
   },
   {
     "name":"昼",
-    "meanings":[ "daytime", "noon" ],
+    "meanings":[ "noon", "daytime" ],
     "onyomi":[ "チュウ" ],
     "kunyomi":[ "ひる" ]
   },
@@ -67,7 +67,7 @@
   },
   {
     "name":"夜",
-    "meanings":[ "night", "evening" ],
+    "meanings":[ "night" ],
     "onyomi":[ "ヤ" ],
     "kunyomi":[ "よ", "よる" ]
   },
@@ -87,31 +87,31 @@
     "name":"止",
     "meanings":[ "stop", "halt" ],
     "onyomi":[ "シ" ],
-    "kunyomi":[ "と.まる", "-ど.まり", "と.める", "-と.める", "-ど.め", "とど.める", "とど.め", "とど.まる", "や.める", "や.む", "-や.む", "よ.す", "-さ.す", "-さ.し" ]
+    "kunyomi":[ "と.まる", "や.む" ]
   },
   {
     "name":"正",
-    "meanings":[ "correct", "justice", "righteous", "10**40" ],
+    "meanings":[ "correct", "justice" ],
     "onyomi":[ "セイ", "ショウ" ],
-    "kunyomi":[ "ただ.しい", "ただ.す", "まさ", "まさ.に" ]
+    "kunyomi":[ "ただ.しい", "ただ.す", "まさ.に" ]
   },
   {
     "name":"明",
     "meanings":[ "bright", "light" ],
     "onyomi":[ "メイ", "ミョウ", "ミン" ],
-    "kunyomi":[ "あ.かり", "あか.るい", "あか.るむ", "あか.らむ", "あき.らか", "あ.ける", "-あ.け", "あ.く", "あ.くる", "あ.かす" ]
+    "kunyomi":[ "あ.かり" ]
   },
   {
     "name":"青",
-    "meanings":[ "blue", "green" ],
+    "meanings":[ "blue" ],
     "onyomi":[ "セイ", "ショウ" ],
-    "kunyomi":[ "あお", "あお-", "あお.い" ]
+    "kunyomi":[ "あお.い" ]
   },
   {
     "name":"赤",
     "meanings":[ "red" ],
     "onyomi":[ "セキ", "シャク" ],
-    "kunyomi":[ "あか", "あか-", "あか.い", "あか.らむ", "あか.らめる" ]
+    "kunyomi":[ "あか", "あか.い" ]
   },
   {
     "name":"色",
