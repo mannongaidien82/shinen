@@ -385,6 +385,8 @@
               return 'word-base';
             case 'F':
               return 'word-foreign';
+            case 'N':
+              return 'word-name';
             case '0':
             case '1':
             case '2':
