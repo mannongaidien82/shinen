@@ -312,6 +312,7 @@ Shinen.directive 'shWord', ( $http ) ->
       when 'C' then 'word-company'
       when 'B' then 'word-base'
       when 'F' then 'word-foreign'
+      when 'N' then 'word-name'
       when '0', '1', '2', '3', '4' then 'word-leveled'
       else 'word-unknown'
 
