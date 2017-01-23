@@ -71,7 +71,7 @@
     loadArticle = function(id) {
       return $http({
         method: 'GET',
-        url: (LOCAL_MODE ? "resources/" + id + ".out.json" : cors("http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.json"))
+        url: (LOCAL_MODE ? "resources/" + id + ".out.json" : cors("https://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.json"))
       }).then(function(response) {
         var chunk, chunks;
         $scope.article = {
@@ -101,7 +101,7 @@
     loadDictionary = function(id) {
       return $http({
         method: 'GET',
-        url: (LOCAL_MODE ? "resources/" + id + ".out.dic" : cors("http://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.dic"))
+        url: (LOCAL_MODE ? "resources/" + id + ".out.dic" : cors("https://www3.nhk.or.jp/news/easy/" + id + "/" + id + ".out.dic"))
       }).then(function(response) {
         var html, ref, results, val;
         $scope.article.dic = {};
@@ -119,7 +119,7 @@
     };
     $http({
       method: 'GET',
-      url: (LOCAL_MODE ? "resources/news-list.json" : cors("http://www3.nhk.or.jp/news/easy/news-list.json"))
+      url: (LOCAL_MODE ? "resources/news-list.json" : cors("https://www3.nhk.or.jp/news/easy/news-list.json"))
     }).then(function(response) {
       var date, firstNewsID, news, ref;
       $scope.news = {};
