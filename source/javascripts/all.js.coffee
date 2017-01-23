@@ -62,7 +62,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   loadArticle = ( id ) ->
     $http
       method: 'GET',
-      url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
+      url: ( if LOCAL_MODE then "resources/#{ id }.out.json" else cors "https://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.json" )
     .then ( response ) ->
       $scope.article = { raw: response.data, dic: {} }
       chunks = []
@@ -85,7 +85,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
   loadDictionary = ( id ) ->
     $http
       method: 'GET',
-      url: ( if LOCAL_MODE then "resources/#{ id }.out.dic" else cors "http://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.dic" )
+      url: ( if LOCAL_MODE then "resources/#{ id }.out.dic" else cors "https://www3.nhk.or.jp/news/easy/#{ id }/#{ id }.out.dic" )
     .then ( response ) ->
       $scope.article.dic = {}
 
@@ -96,7 +96,7 @@ Shinen.controller 'newsCtrl', ( $scope, $http, $sce ) ->
 
   $http
     method: 'GET',
-    url: ( if LOCAL_MODE then "resources/news-list.json" else cors "http://www3.nhk.or.jp/news/easy/news-list.json" )
+    url: ( if LOCAL_MODE then "resources/news-list.json" else cors "https://www3.nhk.or.jp/news/easy/news-list.json" )
   .then ( response ) ->
     $scope.news = {}
     for date, news of $scope.kanjis = response.data[ 0 ]
